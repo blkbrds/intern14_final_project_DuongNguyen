@@ -119,6 +119,31 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		1CBB1B212317762700614B63 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				6AFD0302231375EE004940FA /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		1CBB1B222317764400614B63 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6AFD0309231375EF004940FA /* Assets.xcassets */,
+				6AF60D042313B26E00F5CBA2 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1CBB1B232317765E00614B63 /* Supports */ = {
+			isa = PBXGroup;
+			children = (
+				6AFD030E231375EF004940FA /* Info.plist */,
+			);
+			path = Supports;
+			sourceTree = "<group>";
+		};
 		6AF60D062313B2EF00F5CBA2 /* Define */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,14 +274,13 @@
 		6AFD0301231375EE004940FA /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
-				6AFD0302231375EE004940FA /* AppDelegate.swift */,
-				6AFD0309231375EF004940FA /* Assets.xcassets */,
-				6AFD030E231375EF004940FA /* Info.plist */,
-				6AF60D042313B26E00F5CBA2 /* LaunchScreen.storyboard */,
+				1CBB1B212317762700614B63 /* AppDelegate */,
 				6AF60D062313B2EF00F5CBA2 /* Define */,
 				6AF60DD82313B98800F5CBA2 /* Library */,
 				6AF60D232313B56B00F5CBA2 /* Model */,
 				6AF60E242313C13600F5CBA2 /* View */,
+				1CBB1B222317764400614B63 /* Resources */,
+				1CBB1B232317765E00614B63 /* Supports */,
 			);
 			path = FinalProject;
 			sourceTree = "<group>";
@@ -654,7 +678,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = FinalProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FinalProject/Supports/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -672,7 +696,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = FinalProject/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FinalProject/Supports/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
