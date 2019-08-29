@@ -14,6 +14,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        let home = HomeViewController()
+        let homeNaviVC = UINavigationController(rootViewController: home)
+        homeNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-home"), selectedImage: #imageLiteral(resourceName: "ic-home"))
+
+        let search = SearchViewController()
+        let searchNaviVC = UINavigationController(rootViewController: search)
+        searchNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-search"), selectedImage: #imageLiteral(resourceName: "ic-search"))
+
+        let favorite = FavoriteViewController()
+        let favoriteNaviVC = UINavigationController(rootViewController: favorite)
+        favoriteNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-favorite"), selectedImage: #imageLiteral(resourceName: "ic-favorite"))
+
+        let viewControllers = [homeNaviVC, searchNaviVC, favoriteNaviVC]
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = viewControllers
+
+        UITabBar.appearance().tintColor = App.Color.selectedTintColor
+//        UITabBarItem.set
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = tabBarController
         return true
     }
 
