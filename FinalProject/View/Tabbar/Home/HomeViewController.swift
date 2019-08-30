@@ -58,15 +58,11 @@ extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
-        case 0:
-            return nil
-        default:
-//            let view = Bundle.main.loadNibNamed("HearderView", owner: self, options: nil)?.first as? UIView
-            let view = UIView()
-            let label = Label(frame: CGRect(x: 5, y: 5, width: 100, height: 30))
-            label.text = "Ahihi"
-            view.addSubview(label)
+        case 1, 2, 3, 4:
+            let view = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?[0] as? HeaderView
             return view
+        default:
+            return nil
         }
     }
 

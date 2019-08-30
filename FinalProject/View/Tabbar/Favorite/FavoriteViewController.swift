@@ -10,9 +10,19 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        configTableView()
         setUpUI()
+    }
+
+    // MARK: - Custom funcs
+    private func configTableView() {
+        tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "SearchCell")
+        tableView.allowsMultipleSelection = true
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
     private func setUpUI() {
@@ -20,4 +30,23 @@ class FavoriteViewController: UIViewController {
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
         navigationItem.rightBarButtonItem = deleteButton
     }
+}
+
+// MARK: - Extensions
+extension FavoriteViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as? SearchCell else {
+            return UITableViewCell()
+        }
+        return cell
+    }
+}
+
+extension FavoriteViewController: UITableViewDelegate {
+
 }
