@@ -19,30 +19,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="162" height="185"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-bf-WRj">
-                        <rect key="frame" x="0.0" y="0.0" width="162" height="164"/>
-                        <color key="backgroundColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="errorVideoImg" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-bf-WRj">
+                        <rect key="frame" x="0.0" y="0.0" width="162" height="185"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="abcxyz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9M-WA-TzY">
-                        <rect key="frame" x="0.0" y="164" width="162" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9M-WA-TzY">
+                        <rect key="frame" x="0.0" y="160" width="162" height="25"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="deV-kV-QM9"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.93601172300000002" green="1" blue="0.95274334409999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="WgA-bf-WRj" secondAttribute="trailing" id="0vY-Hw-hfn"/>
-                <constraint firstAttribute="trailing" secondItem="V9M-WA-TzY" secondAttribute="trailing" id="2Zn-qA-1nG"/>
-                <constraint firstAttribute="bottom" secondItem="V9M-WA-TzY" secondAttribute="bottom" id="EUH-ZU-kZJ"/>
-                <constraint firstItem="V9M-WA-TzY" firstAttribute="top" secondItem="WgA-bf-WRj" secondAttribute="bottom" id="SrR-eL-Bcb"/>
-                <constraint firstItem="V9M-WA-TzY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gCP-m3-bbQ"/>
-                <constraint firstItem="WgA-bf-WRj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="owz-s2-nc0"/>
-                <constraint firstItem="WgA-bf-WRj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="vC1-xv-ZPd"/>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="leading" secondItem="WgA-bf-WRj" secondAttribute="leading" id="6BD-ED-EYE"/>
+                <constraint firstItem="WgA-bf-WRj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DsG-Hm-QmK"/>
+                <constraint firstAttribute="trailing" secondItem="WgA-bf-WRj" secondAttribute="trailing" id="JWW-Xn-JdP"/>
+                <constraint firstItem="WgA-bf-WRj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Vyw-Mm-q3l"/>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="trailing" secondItem="WgA-bf-WRj" secondAttribute="trailing" id="dvp-At-2N3"/>
+                <constraint firstAttribute="bottom" secondItem="WgA-bf-WRj" secondAttribute="bottom" id="mWd-6V-MCG"/>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="bottom" secondItem="WgA-bf-WRj" secondAttribute="bottom" id="mYu-CA-u5x"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="162" height="185"/>
             <point key="canvasLocation" x="101.44927536231884" y="118.19196428571428"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="errorVideoImg" width="1000" height="500"/>
+    </resources>
 </document>

@@ -17,17 +17,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjO-qi-gos">
-                    <rect key="frame" x="10" y="61" width="971" height="21"/>
+                    <rect key="frame" x="10" y="61" width="961" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" red="1" green="0.2326999531" blue="0.16884003619999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OCE-zL-d4n">
-                    <rect key="frame" x="981" y="56.5" width="50" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OCE-zL-d4n">
+                    <rect key="frame" x="971" y="54.5" width="60" height="34"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="50" id="qX0-HD-rcW"/>
+                        <constraint firstAttribute="width" constant="60" id="qX0-HD-rcW"/>
                     </constraints>
-                    <state key="normal" title="More">
+                    <state key="normal" title="More &gt;">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>

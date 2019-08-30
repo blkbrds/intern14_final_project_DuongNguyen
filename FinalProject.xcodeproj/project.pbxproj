@@ -205,7 +205,7 @@
 		1C0E12152317D4DB00DD5773 /* SliderImage */ = {
 			isa = PBXGroup;
 			children = (
-				1C0E121C2317DE9300DD5773 /* New Group */,
+				1C0E121C2317DE9300DD5773 /* SliderCell */,
 				1C0E120D2317D3E400DD5773 /* SliderImageCell.swift */,
 				1C0E120E2317D3E400DD5773 /* SliderImageCell.xib */,
 			);
@@ -231,13 +231,13 @@
 			path = ImagesCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		1C0E121C2317DE9300DD5773 /* New Group */ = {
+		1C0E121C2317DE9300DD5773 /* SliderCell */ = {
 			isa = PBXGroup;
 			children = (
 				1C0E121D2317DEE800DD5773 /* SliderImageCollectionViewCell.swift */,
 				1C0E121E2317DEE800DD5773 /* SliderImageCollectionViewCell.xib */,
 			);
-			path = "New Group";
+			path = SliderCell;
 			sourceTree = "<group>";
 		};
 		1C0E12212318279000DD5773 /* Channels */ = {

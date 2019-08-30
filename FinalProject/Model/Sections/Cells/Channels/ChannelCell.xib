@@ -37,26 +37,38 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vO-Wa-F4w">
-                        <rect key="frame" x="116.5" y="10" width="224.5" height="21"/>
+                        <rect key="frame" x="116.5" y="10" width="184.5" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNj-d2-WQA">
+                        <rect key="frame" x="311" y="38.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="NlP-XE-LMx"/>
+                            <constraint firstAttribute="width" secondItem="BNj-d2-WQA" secondAttribute="height" id="tRY-0k-ZED"/>
+                        </constraints>
+                        <state key="normal" title="&gt;">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUG-5N-2jM">
-                        <rect key="frame" x="116.5" y="74.5" width="224.5" height="17"/>
+                        <rect key="frame" x="116.5" y="74.5" width="184.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="fUG-5N-2jM" secondAttribute="trailing" constant="10" id="EG9-K2-Dqu"/>
                     <constraint firstItem="6Uy-19-pJx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="K4E-tu-eq9"/>
+                    <constraint firstItem="BNj-d2-WQA" firstAttribute="centerY" secondItem="6Uy-19-pJx" secondAttribute="centerY" id="KO7-dE-aHb"/>
+                    <constraint firstItem="BNj-d2-WQA" firstAttribute="leading" secondItem="5vO-Wa-F4w" secondAttribute="trailing" constant="10" id="KRL-T1-Znv"/>
                     <constraint firstItem="fUG-5N-2jM" firstAttribute="leading" secondItem="6Uy-19-pJx" secondAttribute="trailing" constant="10" id="RoK-DG-dZJ"/>
+                    <constraint firstAttribute="trailing" secondItem="BNj-d2-WQA" secondAttribute="trailing" constant="10" id="Yzx-tV-pkH"/>
                     <constraint firstItem="6Uy-19-pJx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ZMb-g6-ngF"/>
                     <constraint firstAttribute="bottom" secondItem="6Uy-19-pJx" secondAttribute="bottom" constant="5" id="b8E-Bw-5Sn"/>
-                    <constraint firstAttribute="trailing" secondItem="5vO-Wa-F4w" secondAttribute="trailing" constant="10" id="ehJ-OF-N5i"/>
                     <constraint firstItem="5vO-Wa-F4w" firstAttribute="leading" secondItem="6Uy-19-pJx" secondAttribute="trailing" constant="10" id="ljq-3X-XK8"/>
+                    <constraint firstItem="BNj-d2-WQA" firstAttribute="leading" secondItem="fUG-5N-2jM" secondAttribute="trailing" constant="10" id="s76-aw-7TH"/>
                     <constraint firstItem="5vO-Wa-F4w" firstAttribute="top" secondItem="6Uy-19-pJx" secondAttribute="top" constant="5" id="sgZ-SV-A3f"/>
                     <constraint firstItem="fUG-5N-2jM" firstAttribute="bottom" secondItem="6Uy-19-pJx" secondAttribute="bottom" constant="-10" id="xbc-YM-xrh"/>
                 </constraints>

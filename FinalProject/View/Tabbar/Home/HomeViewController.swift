@@ -51,18 +51,25 @@ extension HomeViewController: UITableViewDataSource {
             return 1
         }
     }
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Ahihi"
-//    }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
+        case 0:
+            return UIView()
         case 1, 2, 3, 4:
             let view = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?[0] as? HeaderView
             return view
         default:
             return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0
+        default:
+            return 30
         }
     }
 
