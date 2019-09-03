@@ -13,6 +13,13 @@ class HomeViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
 
+    // MARK: - Properties
+    var homeViewModel = HomeViewModel() {
+        didSet {
+            setUpUI()
+        }
+    }
+
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,33 +47,28 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return homeViewModel.numberOfSections()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 4:
-            return 10
-        default:
-            return 1
-        }
+        return homeViewModel.numberOfRowInSection(in: section)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
+        guard let sectionType = HomeViewModel.SectionType(rawValue: section) else {
             return UIView()
-        case 1, 2, 3, 4:
-            let view = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?[0] as? HeaderView
-            return view
-        default:
-            return nil
         }
+        let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?[0] as? HeaderView
+        headerView?.updateUI(title: sectionType.title)
+        return headerView
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
+        guard let sectionType = HomeViewModel.SectionType(rawValue: section) else {
+            return 0
+        }
+        switch sectionType {
+        case .trending:
             return 0
         default:
             return 30
@@ -74,39 +76,44 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 200
-        case 1, 2, 3:
-            return 100
-        default:
-            return 60
-        }
+        return homeViewModel.heightForRowAt(at: indexPath)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
+        guard let sectionType = HomeViewModel.SectionType(rawValue: indexPath.section) else {
+            return UITableViewCell()
+        }
+        switch sectionType {
+        case .trending:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SliderImageCell", for: indexPath) as? SliderImageCell else {
                 return UITableViewCell()
             }
             return cell
-        case 1, 2, 3:
+        case .bolero:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
                 return UITableViewCell()
             }
             return cell
-        case 4:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell", for: indexPath) as? ListSearchCell else {
+        case .nhacVang:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
                 return UITableViewCell()
             }
             return cell
-        default:
-            return UITableViewCell()
+        case .nhacXuan:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
+                return UITableViewCell()
+            }
+            return cell
+        case .channel:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell", for: indexPath) as? ChannelCell else {
+                return UITableViewCell()
+            }
+            cell.viewModel = homeViewModel.getChannels(at: indexPath)
+            return cell
         }
     }
 }
 
 extension HomeViewController: UITableViewDelegate {
-
+// code
 }

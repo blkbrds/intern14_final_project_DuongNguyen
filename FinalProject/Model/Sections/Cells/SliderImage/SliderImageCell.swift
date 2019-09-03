@@ -14,12 +14,16 @@ class SliderImageCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageView: UIPageControl!
 
-    // MARK: - properties
-    // Temp list image
-    var imgArr = [#imageLiteral(resourceName: "img2"), #imageLiteral(resourceName: "img1"), #imageLiteral(resourceName: "img5"), #imageLiteral(resourceName: "img4"), #imageLiteral(resourceName: "img3")]
-
+    // MARK: - Properties
     private var timer = Timer()
     private var counter = 0
+    var viewModel = SliderViewModel() {
+        didSet {
+            configCollectionView()
+            configPageView()
+        }
+    }
+
     // MARK: - Life Cycles
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +44,7 @@ class SliderImageCell: UITableViewCell {
     }
 
     private func configPageView() {
-        pageView.numberOfPages = imgArr.count
+        pageView.numberOfPages = viewModel.numberOfImages()
         pageView.currentPage = 0
         DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
@@ -48,7 +52,7 @@ class SliderImageCell: UITableViewCell {
     }
 
     @objc func changeImage() {
-        if counter < imgArr.count {
+        if counter < viewModel.numberOfImages() {
             let index = IndexPath(item: counter, section: 0)
             self.collectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
             pageView.currentPage = counter
@@ -67,14 +71,14 @@ class SliderImageCell: UITableViewCell {
 extension SliderImageCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imgArr.count
+        return viewModel.numberOfImages()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SliderImageCollectionViewCell", for: indexPath) as? SliderImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.imageSlider.image = imgArr[indexPath.row]
+        cell.viewModel = viewModel.getSliderImages(at: indexPath)
         return cell
     }
 }

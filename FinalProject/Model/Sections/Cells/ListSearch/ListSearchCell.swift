@@ -13,6 +13,14 @@ class ListSearchCell: UITableViewCell {
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
 
+    // MARK: - Properties
+    var viewModel = ImagesViewModel() {
+        didSet {
+            configCollectionView()
+        }
+    }
+    private let numberOfImage: CGFloat = 4
+
     // MARK: - Life Cycles
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,22 +38,20 @@ class ListSearchCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
-
-    private func setUpColectionView() {
-    }
 }
 
 // MARK: - Extensions
 extension ListSearchCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfImages()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
+        cell.viewModel = viewModel.getImages(at: indexPath)
         return cell
     }
 }
@@ -53,6 +59,6 @@ extension ListSearchCell: UICollectionViewDataSource {
 extension ListSearchCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width / 4, height: 100)
+        return CGSize(width: UIScreen.main.bounds.width / numberOfImage, height: 100)
     }
 }

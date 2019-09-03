@@ -61,6 +61,6 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-//        filterContentForSearchText(searchController.searchBar.text!)
+// to do
     }
 }

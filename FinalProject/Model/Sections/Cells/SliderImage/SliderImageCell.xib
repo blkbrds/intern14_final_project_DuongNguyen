@@ -35,27 +35,14 @@
                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-k3-n40">
                         <rect key="frame" x="20" y="162" width="616" height="37"/>
                     </pageControl>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE OF VIDEO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEw-xu-L28">
-                        <rect key="frame" x="0.0" y="0.0" width="656" height="30"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="pgl-fi-AST"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" red="0.93601172300000002" green="1" blue="0.95274334409999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="2SG-WB-OEZ" secondAttribute="trailing" id="CHN-fg-MPC"/>
                     <constraint firstItem="bJC-k3-n40" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="L7q-b7-erv"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bJC-k3-n40" secondAttribute="trailing" id="b1n-H6-q8n"/>
                     <constraint firstAttribute="bottom" secondItem="2SG-WB-OEZ" secondAttribute="bottom" id="fRw-Zi-r8G"/>
-                    <constraint firstItem="mEw-xu-L28" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="h4b-xK-l5u"/>
                     <constraint firstItem="bJC-k3-n40" firstAttribute="bottom" secondItem="2SG-WB-OEZ" secondAttribute="bottom" id="j4c-hR-13e"/>
                     <constraint firstItem="2SG-WB-OEZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oUV-39-PkJ"/>
-                    <constraint firstAttribute="trailing" secondItem="mEw-xu-L28" secondAttribute="trailing" id="qJ4-02-ZoB"/>
-                    <constraint firstItem="mEw-xu-L28" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wwi-qQ-1Fb"/>
                     <constraint firstItem="2SG-WB-OEZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="x3k-Nz-3xT"/>
                 </constraints>
             </tableViewCellContentView>

@@ -74,6 +74,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="channelDescriptionLabel" destination="fUG-5N-2jM" id="LbF-X7-fe1"/>
+                <outlet property="channelImageView" destination="6Uy-19-pJx" id="nQH-1q-Ad1"/>
+                <outlet property="channelTitleLabel" destination="5vO-Wa-F4w" id="jk4-cH-FTe"/>
+            </connections>
             <point key="canvasLocation" x="152.89855072463769" y="92.745535714285708"/>
         </tableViewCell>
     </objects>

@@ -10,9 +10,21 @@ import UIKit
 
 class SliderImageCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var imageSlider: UIImageView!
+    // MARK: - Outlets
+    @IBOutlet weak var sliderImageView: UIImageView!
+    @IBOutlet weak var sliderTitleVideoLabel: UILabel!
 
+    var viewModel = SliderImageViewModel() {
+        didSet {
+            updateUI()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+
+    func updateUI() {
+        self.sliderImageView.image = UIImage(named: viewModel.sliderImageView)
+        self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
     }
 }
