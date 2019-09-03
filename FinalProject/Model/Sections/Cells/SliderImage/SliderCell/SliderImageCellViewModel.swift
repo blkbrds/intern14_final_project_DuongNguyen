@@ -9,7 +9,7 @@
 import Foundation
 import MVVM
 
-class SliderImageViewModel: MVVM.ViewModel {
+final class SliderImageCellViewModel: MVVM.ViewModel {
     var sliderImageView: String
     var sliderTitleVideoLabel: String
 

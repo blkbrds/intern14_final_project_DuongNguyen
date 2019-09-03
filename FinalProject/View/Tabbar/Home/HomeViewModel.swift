@@ -13,7 +13,9 @@ final class HomeViewModel: MVVM.ViewModel {
 
     // MARK: - Propeties
     // Temp channel list
-    var channel: [String] = ["123", "456", "789"]
+    var channels: [String] = []
+    var imgArr: [String] = []
+    var popVideos: [String] = []
 
     enum SectionType: Int, CaseIterable {
         case trending
@@ -43,8 +45,8 @@ final class HomeViewModel: MVVM.ViewModel {
         return SectionType.allCases.count
     }
 
-    func getChannels(at indexPath: IndexPath) -> ChannelViewModel {
-        return ChannelViewModel(channelImage: "", channelTitle: channel[indexPath.row], channelDescription: channel[indexPath.row])
+    func getChannels(at indexPath: IndexPath) -> ChannelCellViewModel {
+        return ChannelCellViewModel(channelImage: "", channelTitle: channels[indexPath.row], channelDescription: channels[indexPath.row])
     }
 
     func numberOfRowInSection(in section: Int) -> Int {
@@ -53,7 +55,7 @@ final class HomeViewModel: MVVM.ViewModel {
         case .trending, .bolero, .nhacVang, .nhacXuan:
             return 1
         default:
-            return channel.count
+            return channels.count
         }
     }
 
@@ -68,4 +70,34 @@ final class HomeViewModel: MVVM.ViewModel {
             return 100
         }
     }
+}
+
+// MARK: - View Model
+extension HomeViewModel {
+
+    func makeSliderViewModel() -> SliderCellViewModel {
+        let vm = SliderCellViewModel(imgArr: imgArr)
+        return vm
+    }
+
+    func  makeVideoViewModel() -> VideoPopularCellViewModel {
+        let vm = VideoPopularCellViewModel(imgArr: popVideos)
+        return vm
+    }
+}
+
+// MARK: - APIs
+extension HomeViewModel {
+
+    func getData() {
+        imgArr = Dummy.imgArr
+        channels = Dummy.channels
+        popVideos = Dummy.popVideos
+    }
+}
+
+struct Dummy {
+    static let imgArr: [String] = ["img1", "img2", "img3", "img4", "img5"]
+    static let channels: [String] = ["123", "456", "789", "123", "456", "789", "123", "456", "789"]
+    static let popVideos: [String] = ["img1", "img2", "img3", "img4", "img5", "img1", "img2", "img3", "img4", "img5"]
 }

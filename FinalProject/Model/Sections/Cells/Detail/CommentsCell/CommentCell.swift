@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentCell: UITableViewCell {
+final class CommentCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

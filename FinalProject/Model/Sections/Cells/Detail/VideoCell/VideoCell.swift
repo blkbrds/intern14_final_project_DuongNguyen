@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VideoCell: UITableViewCell {
+final class VideoCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

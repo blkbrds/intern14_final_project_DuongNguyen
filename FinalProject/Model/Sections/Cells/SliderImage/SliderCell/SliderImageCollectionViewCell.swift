@@ -14,7 +14,7 @@ class SliderImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sliderImageView: UIImageView!
     @IBOutlet weak var sliderTitleVideoLabel: UILabel!
 
-    var viewModel = SliderImageViewModel() {
+    var viewModel = SliderImageCellViewModel() {
         didSet {
             updateUI()
         }

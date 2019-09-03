@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChanelInforCell: UITableViewCell {
+final class ChanelInforCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

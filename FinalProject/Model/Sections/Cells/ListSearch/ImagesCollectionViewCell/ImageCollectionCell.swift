@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.swift
+//  ImageCollectionCell.swift
 //  FinalProject
 //
 //  Created by Nguyen Duong on 8/29/19.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class ImageCollectionCell: UICollectionViewCell {
 
     // MARK: - Outlets
     @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var titleOfVideoLabel: UILabel!
 
     // MARK: - Properties
-    var viewModel = ImageViewCellModel() {
+    var viewModel = ImageCellViewModel() {
         didSet {
             updateUI()
         }

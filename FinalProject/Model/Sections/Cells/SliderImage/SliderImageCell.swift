@@ -17,7 +17,7 @@ class SliderImageCell: UITableViewCell {
     // MARK: - Properties
     private var timer = Timer()
     private var counter = 0
-    var viewModel = SliderViewModel() {
+    var viewModel = SliderCellViewModel() {
         didSet {
             configCollectionView()
             configPageView()

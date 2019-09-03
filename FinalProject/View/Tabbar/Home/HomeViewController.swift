@@ -8,10 +8,10 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     // MARK: - Outlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var tableView: UITableView!
 
     // MARK: - Properties
     var homeViewModel = HomeViewModel() {
@@ -25,13 +25,14 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         configTableView()
         setUpUI()
+        loadData()
     }
 
     // MARK: - Custom funcs
     private func configTableView() {
-        tableView.register(UINib(nibName: "SliderImageCell", bundle: nil), forCellReuseIdentifier: "SliderImageCell")
-        tableView.register(UINib(nibName: "ListSearchCell", bundle: nil), forCellReuseIdentifier: "ListSearchCell")
-        tableView.register(UINib(nibName: "ChannelCell", bundle: nil), forCellReuseIdentifier: "ChannelCell")
+        tableView.register(UINib(nibName: ReuseIdentifier.sliderImageCell, bundle: nil), forCellReuseIdentifier: ReuseIdentifier.sliderImageCell)
+        tableView.register(UINib(nibName: ReuseIdentifier.listSearchCell, bundle: nil), forCellReuseIdentifier: ReuseIdentifier.listSearchCell)
+        tableView.register(UINib(nibName: ReuseIdentifier.channelCell, bundle: nil), forCellReuseIdentifier: ReuseIdentifier.channelCell)
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -40,7 +41,19 @@ class HomeViewController: UIViewController {
         title = "HOME"
     }
 
+    private func loadData() {
+        homeViewModel.getData()
+    }
+
     // MARK: - Actions
+}
+
+extension HomeViewController {
+    struct ReuseIdentifier {
+        static let sliderImageCell = "SliderImageCell"
+        static let listSearchCell = "VideoPopularCell"
+        static let channelCell = "ChannelCell"
+    }
 }
 
 // MARK: - Extensions
@@ -85,27 +98,31 @@ extension HomeViewController: UITableViewDataSource {
         }
         switch sectionType {
         case .trending:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SliderImageCell", for: indexPath) as? SliderImageCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.sliderImageCell, for: indexPath) as? SliderImageCell else {
                 return UITableViewCell()
             }
+            cell.viewModel = homeViewModel.makeSliderViewModel()
             return cell
         case .bolero:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
+             cell.viewModel = homeViewModel.makeVideoViewModel()
             return cell
         case .nhacVang:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
+            cell.viewModel = homeViewModel.makeVideoViewModel()
             return cell
         case .nhacXuan:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListSearchCell", for: indexPath) as? ListSearchCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
+            cell.viewModel = homeViewModel.makeVideoViewModel()
             return cell
         case .channel:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChannelCell", for: indexPath) as? ChannelCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.channelCell, for: indexPath) as? ChannelCell else {
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.getChannels(at: indexPath)

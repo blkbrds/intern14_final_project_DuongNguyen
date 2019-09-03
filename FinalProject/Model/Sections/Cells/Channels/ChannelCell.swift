@@ -9,15 +9,15 @@
 import UIKit
 import MVVM
 
-class ChannelCell: UITableViewCell, MVVM.View {
+final class ChannelCell: UITableViewCell, MVVM.View {
 
-    @IBOutlet weak var channelImageView: UIImageView!
-    @IBOutlet weak var channelTitleLabel: UILabel!
-    @IBOutlet weak var channelDescriptionLabel: UILabel!
+    @IBOutlet weak private var channelImageView: UIImageView!
+    @IBOutlet weak private var channelTitleLabel: UILabel!
+    @IBOutlet weak private var channelDescriptionLabel: UILabel!
 
-    var viewModel = ChannelViewModel() {
+    var viewModel = ChannelCellViewModel() {
         didSet {
-            updateUI()
+            setupUI()
         }
     }
 
@@ -29,7 +29,9 @@ class ChannelCell: UITableViewCell, MVVM.View {
         super.setSelected(selected, animated: animated)
     }
 
-    private func updateUI() {
+    private func setupUI() {
+        // use lib SDWebImage
+//        self.channelImageView.sd_setImage(with: URL(string: viewModel.channelImage), placeholderImage: UIImage(named: "youtube"))
         self.channelImageView.image = UIImage(named: viewModel.channelImage)
         self.channelTitleLabel.text = viewModel.channelTitle
         self.channelDescriptionLabel.text = viewModel.channelDescription

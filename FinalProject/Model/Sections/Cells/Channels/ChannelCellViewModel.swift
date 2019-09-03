@@ -1,5 +1,5 @@
 //
-//  ChannelViewModel.swift
+//  ChannelCellViewModel.swift
 //  FinalProject
 //
 //  Created by Nguyen Duong on 9/3/19.
@@ -9,7 +9,8 @@
 import Foundation
 import MVVM
 
-class ChannelViewModel: MVVM.ViewModel {
+final class ChannelCellViewModel: MVVM.ViewModel {
+
     var channelImage: String
     var channelTitle: String
     var channelDescription: String

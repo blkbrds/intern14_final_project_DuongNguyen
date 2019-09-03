@@ -10,11 +10,13 @@ import UIKit
 
 class HeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var keySearchLabel: UILabel!
+    @IBOutlet private weak var keySearchLabel: UILabel!
 
     func updateUI(title: String?) {
         keySearchLabel.text = title
     }
+
     @IBAction func moreButtonTouchUpInside(_ button: UIButton) {
+    // Todo
     }
 }

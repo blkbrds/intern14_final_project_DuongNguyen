@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.viewControllers = viewControllers
 
         UITabBar.appearance().tintColor = App.Color.selectedTintColor
-//        UITabBarItem.set
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = tabBarController

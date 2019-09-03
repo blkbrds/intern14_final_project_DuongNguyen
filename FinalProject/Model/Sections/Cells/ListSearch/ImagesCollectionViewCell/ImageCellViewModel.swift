@@ -1,5 +1,5 @@
 //
-//  ImageViewCellModel.swift
+//  ImageCellViewModel.swift
 //  FinalProject
 //
 //  Created by Nguyen Duong on 9/3/19.
@@ -9,7 +9,7 @@
 import Foundation
 import MVVM
 
-class ImageViewCellModel: MVVM.ViewModel {
+final class ImageCellViewModel: MVVM.ViewModel {
 
     // MARK: - Properties
     var videoImageView: String

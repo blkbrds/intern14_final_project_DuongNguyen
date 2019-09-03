@@ -1,5 +1,5 @@
 //
-//  ListSearchCell.swift
+//  VideoPopularCell.swift
 //  FinalProject
 //
 //  Created by Nguyen Duong on 8/29/19.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ListSearchCell: UITableViewCell {
+final class VideoPopularCell: UITableViewCell {
 
     // MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
 
     // MARK: - Properties
-    var viewModel = ImagesViewModel() {
+    var viewModel = VideoPopularCellViewModel() {
         didSet {
             configCollectionView()
         }
@@ -33,7 +33,7 @@ class ListSearchCell: UITableViewCell {
 
     // MARK: - Custom funcs
     private func configCollectionView() {
-        let cellNib = UINib(nibName: "CollectionViewCell", bundle: Bundle.main)
+        let cellNib = UINib(nibName: "ImageCollectionCell", bundle: Bundle.main)
         collectionView.register(cellNib, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -41,14 +41,14 @@ class ListSearchCell: UITableViewCell {
 }
 
 // MARK: - Extensions
-extension ListSearchCell: UICollectionViewDataSource {
+extension VideoPopularCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfImages()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ImageCollectionCell else {
             return UICollectionViewCell()
         }
         cell.viewModel = viewModel.getImages(at: indexPath)
@@ -56,7 +56,7 @@ extension ListSearchCell: UICollectionViewDataSource {
     }
 }
 
-extension ListSearchCell: UICollectionViewDelegateFlowLayout {
+extension VideoPopularCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width / numberOfImage, height: 100)
