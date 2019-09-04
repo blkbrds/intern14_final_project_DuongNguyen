@@ -33,7 +33,6 @@ final class ChannelCell: UITableViewCell, MVVM.View {
     private func setupUI() {
         // use lib SDWebImage
         self.channelImageView.sd_setImage(with: URL(string: viewModel.channelImage), placeholderImage: UIImage(named: "youtube"))
-//        self.channelImageView.image = UIImage(named: viewModel.channelImage)
         self.channelTitleLabel.text = viewModel.channelTitle
         self.channelDescriptionLabel.text = viewModel.channelDescription
     }

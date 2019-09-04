@@ -137,19 +137,19 @@ extension HomeViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-             cell.viewModel = homeViewModel.makeVideoViewModel()
+             cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
             return cell
         case .nhacVang:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = homeViewModel.makeVideoViewModel()
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
             return cell
         case .nhacXuan:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = homeViewModel.makeVideoViewModel()
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
             return cell
         case .channel:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.channelCell, for: indexPath) as? ChannelCell else {

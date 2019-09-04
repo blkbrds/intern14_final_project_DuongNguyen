@@ -18,6 +18,7 @@ final class HomeViewModel: MVVM.ViewModel {
 
     private var itemsResponse: Results<ItemsResponse>?
     private var snippets: Results<Snippet>?
+    private var boleroes: Results<Snippet>?
     private var token: NotificationToken?
     // Temp channel list
 //    var channels: [String] = []
@@ -90,9 +91,18 @@ extension HomeViewModel {
         return vm
     }
 
-    func  makeVideoViewModel() -> VideoPopularCellViewModel {
-        let vm = VideoPopularCellViewModel(imgArr: popVideos)
-        return vm
+    func  makeVideoViewModel(for indexPath: IndexPath) -> VideoPopularCellViewModel {
+        guard let section = SectionType(rawValue: indexPath.section) else { return VideoPopularCellViewModel() }
+        switch section {
+        case .bolero:
+            return VideoPopularCellViewModel(imgArr: popVideos)
+        case .nhacVang:
+            return VideoPopularCellViewModel(imgArr: popVideos)
+        case .nhacXuan:
+            return VideoPopularCellViewModel(imgArr: popVideos)
+        case .channel, .trending:
+            return VideoPopularCellViewModel()
+        }
     }
 }
 
