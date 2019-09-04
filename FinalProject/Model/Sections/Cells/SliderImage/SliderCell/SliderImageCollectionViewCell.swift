@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SliderImageCollectionViewCell: UICollectionViewCell {
+final class SliderImageCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Outlets
-    @IBOutlet weak var sliderImageView: UIImageView!
-    @IBOutlet weak var sliderTitleVideoLabel: UILabel!
+    @IBOutlet weak private var sliderImageView: UIImageView!
+    @IBOutlet weak private var sliderTitleVideoLabel: UILabel!
 
     var viewModel = SliderImageCellViewModel() {
         didSet {

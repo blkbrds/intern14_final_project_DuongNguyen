@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SliderImageCell: UITableViewCell {
+final class SliderImageCell: UITableViewCell {
 
     // MARK: - Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var pageView: UIPageControl!
+    @IBOutlet weak private var collectionView: UICollectionView!
+    @IBOutlet weak private var pageView: UIPageControl!
 
     // MARK: - Properties
     private var timer = Timer()
@@ -37,8 +37,8 @@ class SliderImageCell: UITableViewCell {
 
     // MARK: - Custom funcs
     private func configCollectionView() {
-        let cellNib = UINib(nibName: "SliderImageCollectionViewCell", bundle: Bundle.main)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: "SliderImageCollectionViewCell")
+        let cellNib = UINib(nibName: ReuseIndentifier.sliderImageCollectionViewCell, bundle: Bundle.main)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: ReuseIndentifier.sliderImageCollectionViewCell)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -46,9 +46,9 @@ class SliderImageCell: UITableViewCell {
     private func configPageView() {
         pageView.numberOfPages = viewModel.numberOfImages()
         pageView.currentPage = 0
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
-        }
+//        }
     }
 
     @objc func changeImage() {
@@ -68,6 +68,13 @@ class SliderImageCell: UITableViewCell {
 }
 
 // MARK: - Extensions
+
+extension SliderImageCell {
+    struct ReuseIndentifier {
+        static let sliderImageCollectionViewCell = "SliderImageCollectionViewCell"
+    }
+}
+
 extension SliderImageCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,7 +82,7 @@ extension SliderImageCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SliderImageCollectionViewCell", for: indexPath) as? SliderImageCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIndentifier.sliderImageCollectionViewCell, for: indexPath) as? SliderImageCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.viewModel = viewModel.getSliderImages(at: indexPath)

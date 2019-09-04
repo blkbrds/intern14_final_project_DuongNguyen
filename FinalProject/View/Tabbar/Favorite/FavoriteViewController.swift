@@ -8,9 +8,9 @@
 
 import UIKit
 
-class FavoriteViewController: UIViewController {
+ final class FavoriteViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         configTableView()
@@ -19,7 +19,7 @@ class FavoriteViewController: UIViewController {
 
     // MARK: - Custom funcs
     private func configTableView() {
-        tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "SearchCell")
+        tableView.register(UINib(nibName: ReuseIdentifier.searchCell, bundle: nil), forCellReuseIdentifier: ReuseIdentifier.searchCell)
         tableView.allowsMultipleSelection = true
         tableView.dataSource = self
         tableView.delegate = self
@@ -33,6 +33,13 @@ class FavoriteViewController: UIViewController {
 }
 
 // MARK: - Extensions
+
+extension FavoriteViewController {
+    struct ReuseIdentifier {
+        static let searchCell = "SearchCell"
+    }
+}
+
 extension FavoriteViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,7 +47,7 @@ extension FavoriteViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as? SearchCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.searchCell, for: indexPath) as? SearchCell else {
             return UITableViewCell()
         }
         return cell

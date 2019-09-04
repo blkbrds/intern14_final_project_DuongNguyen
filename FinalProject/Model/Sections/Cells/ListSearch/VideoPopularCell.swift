@@ -11,7 +11,7 @@ import UIKit
 final class VideoPopularCell: UITableViewCell {
 
     // MARK: - Outlets
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak private var collectionView: UICollectionView!
 
     // MARK: - Properties
     var viewModel = VideoPopularCellViewModel() {
@@ -33,14 +33,21 @@ final class VideoPopularCell: UITableViewCell {
 
     // MARK: - Custom funcs
     private func configCollectionView() {
-        let cellNib = UINib(nibName: "ImageCollectionCell", bundle: Bundle.main)
-        collectionView.register(cellNib, forCellWithReuseIdentifier: "cell")
+        let cellNib = UINib(nibName: ReuseIndentifier.imageCollectionCell, bundle: Bundle.main)
+        collectionView.register(cellNib, forCellWithReuseIdentifier: ReuseIndentifier.imageCollectionCell)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
 }
 
 // MARK: - Extensions
+
+extension VideoPopularCell {
+    struct ReuseIndentifier {
+        static let imageCollectionCell = "ImageCollectionCell"
+    }
+}
+
 extension VideoPopularCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -48,7 +55,7 @@ extension VideoPopularCell: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ImageCollectionCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIndentifier.imageCollectionCell, for: indexPath) as? ImageCollectionCell else {
             return UICollectionViewCell()
         }
         cell.viewModel = viewModel.getImages(at: indexPath)
