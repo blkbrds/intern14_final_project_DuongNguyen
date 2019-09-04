@@ -12,6 +12,10 @@ import ObjectMapper
 
 extension UIViewController {
 
+    func alert(error: String) {
+        alert(title: "ERROR", msg: error, buttons: ["OK"], handler: nil)
+    }
+
     func alert(title: String? = nil,
                msg: String,
                buttons: [String] = ["OK"],

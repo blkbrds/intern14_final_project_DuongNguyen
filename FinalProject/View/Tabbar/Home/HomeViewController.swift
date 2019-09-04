@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MVVM
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, MVVM.View {
 
     // MARK: - Outlets
     @IBOutlet weak private var tableView: UITableView!
@@ -17,15 +18,38 @@ final class HomeViewController: UIViewController {
     var homeViewModel = HomeViewModel() {
         didSet {
             setUpUI()
+            updateView()
         }
     }
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        homeViewModel.delegate = self
+        homeViewModel.fetch()
         configTableView()
         setUpUI()
         loadData()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        homeViewModel.getSnippets { [weak self] (result) in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                self!.tableView.reloadData()
+            case .failure:
+                this.alert(error: "Can't load data!")
+            }
+            this.viewDidUpdated()
+        }
+    }
+
+    func updateView() {
+        guard isViewLoaded else { return }
+        tableView.reloadData()
+        viewDidUpdated()
     }
 
     // MARK: - Custom funcs
@@ -48,6 +72,13 @@ final class HomeViewController: UIViewController {
     // MARK: - Actions
 }
 
+// MARK: - Extensions
+extension HomeViewController: ViewModelDelegate {
+    func viewModel(_ viewModel: ViewModel, didChangeItemsAt indexPaths: [IndexPath], changeType: ChangeType) {
+        updateView()
+    }
+}
+
 extension HomeViewController {
     struct ReuseIdentifier {
         static let sliderImageCell = "SliderImageCell"
@@ -56,7 +87,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: - Extensions
 extension HomeViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
