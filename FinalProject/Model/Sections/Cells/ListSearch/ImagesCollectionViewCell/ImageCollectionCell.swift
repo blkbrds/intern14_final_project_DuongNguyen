@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ImageCollectionCell: UICollectionViewCell {
+final class ImageCollectionCell: UICollectionViewCell {
 
     // MARK: - Outlets
-    @IBOutlet weak var videoImageView: UIImageView!
-    @IBOutlet weak var titleOfVideoLabel: UILabel!
+    @IBOutlet weak private var videoImageView: UIImageView!
+    @IBOutlet weak private var titleOfVideoLabel: UILabel!
 
     // MARK: - Properties
     var viewModel = ImageCellViewModel() {
