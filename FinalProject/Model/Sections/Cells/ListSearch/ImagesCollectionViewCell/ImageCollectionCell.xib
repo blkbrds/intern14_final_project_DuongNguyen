@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ImageCollectionCell" customModule="FinalProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="162" height="185"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="162" height="185"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="errorVideoImg" translatesAutoresizingMaskIntoConstraints="NO" id="WgA-bf-WRj">
+                        <rect key="frame" x="0.0" y="0.0" width="162" height="185"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9M-WA-TzY">
+                        <rect key="frame" x="0.0" y="160" width="162" height="25"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="deV-kV-QM9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.93601172300000002" green="1" blue="0.95274334409999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="leading" secondItem="WgA-bf-WRj" secondAttribute="leading" id="6BD-ED-EYE"/>
+                <constraint firstItem="WgA-bf-WRj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="DsG-Hm-QmK"/>
+                <constraint firstAttribute="trailing" secondItem="WgA-bf-WRj" secondAttribute="trailing" id="JWW-Xn-JdP"/>
+                <constraint firstItem="WgA-bf-WRj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Vyw-Mm-q3l"/>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="trailing" secondItem="WgA-bf-WRj" secondAttribute="trailing" id="dvp-At-2N3"/>
+                <constraint firstAttribute="bottom" secondItem="WgA-bf-WRj" secondAttribute="bottom" id="mWd-6V-MCG"/>
+                <constraint firstItem="V9M-WA-TzY" firstAttribute="bottom" secondItem="WgA-bf-WRj" secondAttribute="bottom" id="mYu-CA-u5x"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="162" height="185"/>
+            <connections>
+                <outlet property="titleOfVideoLabel" destination="V9M-WA-TzY" id="3vo-02-5iq"/>
+                <outlet property="videoImageView" destination="WgA-bf-WRj" id="fy8-NW-enX"/>
+            </connections>
+            <point key="canvasLocation" x="101.44927536231884" y="118.19196428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="errorVideoImg" width="1000" height="500"/>
+    </resources>
+</document>
