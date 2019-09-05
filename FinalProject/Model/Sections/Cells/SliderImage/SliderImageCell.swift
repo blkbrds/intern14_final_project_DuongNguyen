@@ -17,8 +17,10 @@ final class SliderImageCell: UITableViewCell {
     // MARK: - Properties
     private var timer = Timer()
     private var counter = 0
+
     var viewModel = SliderCellViewModel() {
         didSet {
+            collectionView.reloadData()
             configCollectionView()
             configPageView()
         }
@@ -76,6 +78,7 @@ extension SliderImageCell {
 extension SliderImageCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(viewModel.numberOfImages())
         return viewModel.numberOfImages()
     }
 

@@ -16,6 +16,7 @@ final class VideoPopularCell: UITableViewCell {
     // MARK: - Properties
     var viewModel = VideoPopularCellViewModel() {
         didSet {
+            collectionView.reloadData()
             configCollectionView()
         }
     }
@@ -24,6 +25,7 @@ final class VideoPopularCell: UITableViewCell {
     // MARK: - Life Cycles
     override func awakeFromNib() {
         super.awakeFromNib()
+        collectionView.reloadData()
         configCollectionView()
     }
 

@@ -22,28 +22,38 @@ final class HomeViewController: UIViewController, MVVM.View {
         }
     }
 
+    struct Search {
+
+        enum KeySearch {
+            case bolero
+            case nhacXuan
+            case nhacVang
+            case channel
+            case trending
+            var key: String {
+                switch self {
+                case .bolero:
+                    return "bolero"
+                case .nhacXuan:
+                    return "nhacxuan"
+                case .nhacVang:
+                    return "nhacvang"
+                case .channel:
+                    return "karaoke"
+                case .trending:
+                    return ""
+                }
+            }
+        }
+    }
+
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         homeViewModel.delegate = self
-        homeViewModel.fetch()
         configTableView()
         setUpUI()
         loadData()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        homeViewModel.getSnippets { [weak self] (result) in
-            guard let this = self else { return }
-            switch result {
-            case .success:
-                self!.tableView.reloadData()
-            case .failure:
-                this.alert(error: "Can't load data!")
-            }
-            this.viewDidUpdated()
-        }
     }
 
     func updateView() {
@@ -66,7 +76,51 @@ final class HomeViewController: UIViewController, MVVM.View {
     }
 
     private func loadData() {
-        homeViewModel.getData()
+        homeViewModel.getSnippets(keySearch: Search.KeySearch.trending, maxResults: 5) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: Search.KeySearch.channel, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: Search.KeySearch.nhacVang, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: Search.KeySearch.nhacXuan, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: Search.KeySearch.bolero, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
     }
 
     // MARK: - Actions
@@ -162,5 +216,10 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-// code
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        let vc = DetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

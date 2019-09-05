@@ -12,10 +12,6 @@ import ObjectMapper
 
 @objcMembers final class Snippet: Object, Mappable {
 
-    required convenience init?(map: Map) {
-        self.init()
-    }
-
     @objc dynamic var publishedAt = ""
     @objc dynamic var channelId = ""
     @objc dynamic var title = ""
@@ -23,6 +19,10 @@ import ObjectMapper
     @objc dynamic var thumbnails = ""
     @objc dynamic var channelTitle = ""
     @objc dynamic var liveBroadcastContent = ""
+
+    required convenience init?(map: Map) {
+        self.init()
+    }
 
     convenience init(json: JSObject) {
         var schema: [String: Any] = [:]
@@ -59,7 +59,7 @@ import ObjectMapper
         channelId <- map["channelId"]
         title <- map["title"]
         descript <- map["description"]
-        thumbnails <- map["thumbnails"]
+        thumbnails <- map["thumbnails.medium.url"]
         channelTitle <- map["channelTitle"]
         liveBroadcastContent <- map["liveBroadcastContent"]
     }

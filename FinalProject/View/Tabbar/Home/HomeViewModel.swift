@@ -17,13 +17,14 @@ final class HomeViewModel: MVVM.ViewModel {
     weak var delegate: ViewModelDelegate?
 
     private var itemsResponse: Results<ItemsResponse>?
-    private var snippets: Results<Snippet>?
-    private var boleroes: Results<Snippet>?
+    private var snippets: [Snippet] = []
+    private var boleroes: [Snippet] = []
+    private var nhacXuan: [Snippet] = []
+    private var nhacVang: [Snippet] = []
+    private var trending: [Snippet] = []
+    private var pageNextToken: String = ""
+
     private var token: NotificationToken?
-    // Temp channel list
-//    var channels: [String] = []
-    var imgArr: [String] = []
-    var popVideos: [String] = []
 
     enum SectionType: Int, CaseIterable {
         case trending
@@ -47,26 +48,22 @@ final class HomeViewModel: MVVM.ViewModel {
             }
         }
     }
-
     // MARK: - Public func
     func numberOfSections() -> Int {
         return SectionType.allCases.count
     }
 
     func getChannels(at indexPath: IndexPath) -> ChannelCellViewModel {
-        guard let channels = snippets else {
-            fatalError("Please call `fetch()` first.")
-        }
-        return ChannelCellViewModel(channelImage: channels[indexPath.row].thumbnails, channelTitle: channels[indexPath.row].title, channelDescription: channels[indexPath.row].descript)
+        return ChannelCellViewModel(channelImage: snippets[indexPath.row].thumbnails, channelTitle: snippets[indexPath.row].channelTitle, channelDescription: snippets[indexPath.row].descript)
     }
 
     func numberOfRowInSection(in section: Int) -> Int {
-        guard let section = SectionType(rawValue: section), let channels = snippets else { return 0 }
+        guard let section = SectionType(rawValue: section) else { return 0 }
         switch section {
         case .trending, .bolero, .nhacVang, .nhacXuan:
             return 1
         default:
-            return channels.count
+            return snippets.count
         }
     }
 
@@ -81,29 +78,28 @@ final class HomeViewModel: MVVM.ViewModel {
             return 100
         }
     }
-}
-
-// MARK: - View Model
-extension HomeViewModel {
 
     func makeSliderViewModel() -> SliderCellViewModel {
-        let vm = SliderCellViewModel(imgArr: imgArr)
-        return vm
+        return SliderCellViewModel(imgArr: trending)
     }
 
     func  makeVideoViewModel(for indexPath: IndexPath) -> VideoPopularCellViewModel {
         guard let section = SectionType(rawValue: indexPath.section) else { return VideoPopularCellViewModel() }
         switch section {
         case .bolero:
-            return VideoPopularCellViewModel(imgArr: popVideos)
+            return VideoPopularCellViewModel(imgArr: boleroes)
         case .nhacVang:
-            return VideoPopularCellViewModel(imgArr: popVideos)
+            return VideoPopularCellViewModel(imgArr: nhacVang)
         case .nhacXuan:
-            return VideoPopularCellViewModel(imgArr: popVideos)
+            return VideoPopularCellViewModel(imgArr: nhacXuan)
         case .channel, .trending:
             return VideoPopularCellViewModel()
         }
     }
+}
+
+// MARK: - View Model
+extension HomeViewModel {
 }
 
 // MARK: - APIs
@@ -114,75 +110,37 @@ extension HomeViewModel {
         case failure
     }
 
-    func getData() {
-        imgArr = Dummy.imgArr
-//        getSnippets(completion: <#HomeViewModel.GetSnippetCompletion#>)
-        popVideos = Dummy.popVideos
-    }
-
-    func fetch() {
-        guard itemsResponse == nil, snippets == nil else {
-            return
-        }
-        do {
-            try itemsResponse = Realm().objects(ItemsResponse.self)
-            try snippets = Realm().objects(Snippet.self)
-        } catch {
-            itemsResponse = nil
-            snippets = nil
-        }
-    }
-
-    typealias GetSnippetCompletion = (SnippetResult) -> Void
-
-    func getSnippets(completion: @escaping GetSnippetCompletion) {
+    func getSnippets(keySearch: HomeViewController.Search.KeySearch, maxResults: Int, completion: @escaping APICompletion) {
         let params = Api.Snippet.QueryParams(
             token: "CBkQAA",
-            keySearch: "Karaoke",
-            keyID: "AIzaSyDIJ9UssMoN9IfR9KnTc4lb3B9NtHpRF-c"
+            keySearch: keySearch.key,
+            maxResults: maxResults,
+            keyID: "AIzaSyDzfgQXDhXWMwgIhTiQDD7r5PAvPGXETRg"
         )
-        Api.Snippet.query(params: params) { (result) in
-            do {
-                try Realm().refresh()
-            } catch {
-                print("can not refresh")
-            }
+        Api.Snippet.getSnippets(params: params) { (result) in
             switch result {
-            case .success(let data):
-                if let dict = data as? JSObject {
-                    guard let items = dict["items"] as? JSArray else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        do {
-                            let realm = try Realm()
-                            try realm.write {
-                                realm.deleteAll()
-                                for item in items {
-                                    guard let snip = item["snippet"] as? JSObject, let video = item["id"] as? JSObject else {
-                                        return
-                                    }
-                                    realm.add(Snippet(json: snip))
-                                    realm.add(Video(json: video))
-                                    realm.add(ItemsResponse(json: item))
-                                }
-                            }
-                        } catch {
-                            print("KError with Realm")
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let snippetResult):
+                for snippet in snippetResult.items {
+                    if let snip = snippet.snippet {
+                        switch keySearch {
+                        case .channel:
+                            self.snippets.append(snip)
+                        case .bolero:
+                            self.boleroes.append(snip)
+                        case .nhacXuan:
+                            self.nhacXuan.append(snip)
+                        case .nhacVang:
+                            self.nhacVang.append(snip)
+                        case .trending:
+                            self.trending.append(snip)
                         }
                     }
-                } else {
-                    print("It's not")
                 }
+                self.pageNextToken = snippetResult.nextPageToken ?? ""
                 completion(.success)
-            case .failure(_):
-                completion(.failure)
             }
         }
     }
-}
-
-struct Dummy {
-    static let imgArr: [String] = ["img1", "img2", "img3", "img4", "img5"]
-    static let popVideos: [String] = ["img1", "img2", "img3", "img4", "img5", "img1", "img2", "img3", "img4", "img5"]
 }

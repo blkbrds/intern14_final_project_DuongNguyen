@@ -8,16 +8,16 @@
 
 import Foundation
 import RealmSwift
-import  ObjectMapper
+import ObjectMapper
 
 @objcMembers final class Video: Object, Mappable {
+
+    @objc dynamic var kind: String? = ""
+    @objc dynamic var videoId: String? = ""
 
     required convenience init?(map: Map) {
         self.init()
     }
-
-    @objc dynamic var kind: String? = ""
-    @objc dynamic var videoId: String? = ""
 
     convenience init(json: JSObject) {
         var schema: [String: Any] = [:]
