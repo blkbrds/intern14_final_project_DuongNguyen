@@ -10,7 +10,10 @@ import UIKit
 
  final class FavoriteViewController: UIViewController {
 
+    // MARK: - Outlets
     @IBOutlet weak private var tableView: UITableView!
+
+    // MARK: - Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configTableView()
