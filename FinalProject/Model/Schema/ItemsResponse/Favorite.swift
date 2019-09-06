@@ -1,8 +1,8 @@
 //
-//  Video.swift
+//  Favorite.swift
 //  FinalProject
 //
-//  Created by Nguyen Duong on 9/4/19.
+//  Created by Nguyen Duong on 9/6/19.
 //  Copyright © 2019 Asiantech. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 import ObjectMapper
 
-@objcMembers final class Video: Object, Mappable {
+@objcMembers final class Favorite: Object, Mappable {
 
     @objc dynamic var kind: String? = ""
     @objc dynamic var videoId: String? = ""

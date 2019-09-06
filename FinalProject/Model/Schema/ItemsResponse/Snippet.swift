@@ -19,6 +19,7 @@ import ObjectMapper
     @objc dynamic var thumbnails = ""
     @objc dynamic var channelTitle = ""
     @objc dynamic var liveBroadcastContent = ""
+    @objc dynamic var typeVideo = ""
 
     required convenience init?(map: Map) {
         self.init()
@@ -62,5 +63,6 @@ import ObjectMapper
         thumbnails <- map["thumbnails.medium.url"]
         channelTitle <- map["channelTitle"]
         liveBroadcastContent <- map["liveBroadcastContent"]
+        typeVideo <- map["typeVideo"]
     }
 }

@@ -8,10 +8,19 @@
 
 import UIKit
 
+protocol VideoPopularCellDelegate: class {
+    func cell(_ view: VideoPopularCell, needPerformAction action: VideoPopularCell.Action)
+}
+
 final class VideoPopularCell: UITableViewCell {
 
     // MARK: - Outlets
     @IBOutlet weak private var collectionView: UICollectionView!
+
+    // MARK: - Enums
+    enum Action {
+        case didSelectItem(Int, Int)
+    }
 
     // MARK: - Properties
     var viewModel = VideoPopularCellViewModel() {
@@ -21,6 +30,7 @@ final class VideoPopularCell: UITableViewCell {
         }
     }
     private let numberOfImage: CGFloat = 4
+    weak var delegate: VideoPopularCellDelegate?
 
     // MARK: - Life Cycles
     override func awakeFromNib() {
@@ -69,5 +79,10 @@ extension VideoPopularCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width / numberOfImage, height: 100)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        delegate?.cell(self, needPerformAction: .didSelectItem(indexPath.row, viewModel.index))
     }
 }

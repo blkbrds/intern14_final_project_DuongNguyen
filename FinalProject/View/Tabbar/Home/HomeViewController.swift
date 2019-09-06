@@ -23,7 +23,6 @@ final class HomeViewController: UIViewController, MVVM.View {
     }
 
     struct Search {
-
         enum KeySearch {
             case bolero
             case nhacXuan
@@ -51,6 +50,8 @@ final class HomeViewController: UIViewController, MVVM.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         homeViewModel.delegate = self
+        homeViewModel.fetchData()
+        tableView.reloadData()
         configTableView()
         setUpUI()
         loadData()
@@ -186,24 +187,28 @@ extension HomeViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.makeSliderViewModel()
+            cell.delegate = self
             return cell
         case .bolero:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-             cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .nhacVang:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .nhacXuan:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .channel:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.channelCell, for: indexPath) as? ChannelCell else {
@@ -216,10 +221,45 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         let vc = DetailViewController()
+        vc.video = homeViewModel.videoChannel[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension HomeViewController: SliderImageCellDelegate {
+    func cell(_ view: SliderImageCell, needPerformAction action: SliderImageCell.Action) {
+        switch action {
+        case .didSelectItem(let index):
+            let vc = DetailViewController()
+            vc.video = homeViewModel.videoTrending[index]
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension HomeViewController: VideoPopularCellDelegate {
+    func cell(_ view: VideoPopularCell, needPerformAction action: VideoPopularCell.Action) {
+        switch action {
+        case .didSelectItem(let index, let array):
+            guard let section = HomeViewModel.SectionType(rawValue: array) else {
+                return
+            }
+            let vc = DetailViewController()
+            switch section {
+            case .bolero:
+                vc.video = homeViewModel.videoBoleros[index]
+            case .nhacXuan:
+                vc.video = homeViewModel.videoNhacXuan[index]
+            case .nhacVang:
+                vc.video = homeViewModel.videoNhacVang[index]
+            case .channel:
+                break
+            case .trending:
+                break
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

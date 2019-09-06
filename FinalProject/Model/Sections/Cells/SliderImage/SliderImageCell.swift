@@ -8,11 +8,20 @@
 
 import UIKit
 
+protocol SliderImageCellDelegate: class {
+    func cell(_ view: SliderImageCell, needPerformAction action: SliderImageCell.Action)
+}
+
 final class SliderImageCell: UITableViewCell {
 
     // MARK: - Outlets
     @IBOutlet weak private var collectionView: UICollectionView!
     @IBOutlet weak private var pageView: UIPageControl!
+
+    // MARK: - Enums
+    enum Action {
+        case didSelectItem(Int)
+    }
 
     // MARK: - Properties
     private var timer = Timer()
@@ -25,6 +34,7 @@ final class SliderImageCell: UITableViewCell {
             configPageView()
         }
     }
+    weak var delegate: SliderImageCellDelegate?
 
     // MARK: - Life Cycles
     override func awakeFromNib() {
@@ -95,5 +105,9 @@ extension SliderImageCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: 200)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.cell(self, needPerformAction: .didSelectItem(indexPath.row))
     }
 }

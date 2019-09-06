@@ -7,17 +7,30 @@
 //
 
 import UIKit
+import RealmSwift
 
  final class FavoriteViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak private var tableView: UITableView!
+    private var listFav: Results<Favorite>?
+    private var listData: Results<Snippet>?
 
     // MARK: - Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configTableView()
         setUpUI()
+        fetchFavorite()
+    }
+
+    func fetchFavorite() {
+        do {
+            try listFav = Realm().objects(Favorite.self)
+            //try listData = Re
+        } catch {
+            listFav = nil
+        }
     }
 
     // MARK: - Custom funcs
@@ -46,13 +59,17 @@ extension FavoriteViewController {
 extension FavoriteViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        guard let list = listFav else {
+            return 0
+        }
+        return list.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.searchCell, for: indexPath) as? SearchCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.searchCell, for: indexPath) as? SearchCell, let list = listFav else {
             return UITableViewCell()
         }
+        cell.titleLabel.text = list[indexPath.row].videoId
         return cell
     }
 }
