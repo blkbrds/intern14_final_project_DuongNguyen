@@ -36,4 +36,33 @@ final class DetailViewModel: MVVM.ViewModel {
             }
         }
     }
+
+    func removeFavoriteVideo(json: Favorite) {
+        DispatchQueue.main.async {
+            do {
+                let realm = try Realm()
+                let item = realm.objects(Favorite.self).filter("videoId = %@", json.videoId as Any).first
+                try realm.write {
+                    if let obj = item {
+                        realm.delete(obj)
+                    }
+                }
+            } catch {
+                print("KError with Realm")
+            }
+        }
+    }
+
+    func isFavorite(json: Favorite) -> Bool {
+        var item: Favorite?
+//        DispatchQueue.main.async {
+        do {
+            let realm = try Realm()
+            item = realm.objects(Favorite.self).filter("videoId = %@", json.videoId as Any).first
+        } catch {
+            print("KError with Realm")
+        }
+        //        }
+        return item != nil ? true : false
+    }
 }

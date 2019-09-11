@@ -22,30 +22,6 @@ final class HomeViewController: UIViewController, MVVM.View {
         }
     }
 
-    struct Search {
-        enum KeySearch {
-            case bolero
-            case nhacXuan
-            case nhacVang
-            case channel
-            case trending
-            var key: String {
-                switch self {
-                case .bolero:
-                    return "bolero"
-                case .nhacXuan:
-                    return "nhacxuan"
-                case .nhacVang:
-                    return "nhacvang"
-                case .channel:
-                    return "karaoke"
-                case .trending:
-                    return ""
-                }
-            }
-        }
-    }
-
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +53,7 @@ final class HomeViewController: UIViewController, MVVM.View {
     }
 
     private func loadData() {
-        homeViewModel.getSnippets(keySearch: Search.KeySearch.trending, maxResults: 5) { [weak self] result in
+        homeViewModel.getSnippets(keySearch: .trending, maxResults: 5) { [weak self] result in
             guard let this = self else { return }
             switch result {
             case .success:
@@ -86,7 +62,7 @@ final class HomeViewController: UIViewController, MVVM.View {
                 this.alert(title: "", msg: error.localizedDescription, handler: nil)
             }
         }
-        homeViewModel.getSnippets(keySearch: Search.KeySearch.channel, maxResults: 10) { [weak self] result in
+        homeViewModel.getSnippets(keySearch: .channel, maxResults: 10) { [weak self] result in
             guard let this = self else { return }
             switch result {
             case .success:
@@ -95,7 +71,7 @@ final class HomeViewController: UIViewController, MVVM.View {
                 this.alert(title: "", msg: error.localizedDescription, handler: nil)
             }
         }
-        homeViewModel.getSnippets(keySearch: Search.KeySearch.nhacVang, maxResults: 10) { [weak self] result in
+        homeViewModel.getSnippets(keySearch: .nhacVang, maxResults: 10) { [weak self] result in
             guard let this = self else { return }
             switch result {
             case .success:
@@ -104,7 +80,7 @@ final class HomeViewController: UIViewController, MVVM.View {
                 this.alert(title: "", msg: error.localizedDescription, handler: nil)
             }
         }
-        homeViewModel.getSnippets(keySearch: Search.KeySearch.nhacXuan, maxResults: 10) { [weak self] result in
+        homeViewModel.getSnippets(keySearch: .nhacXuan, maxResults: 10) { [weak self] result in
             guard let this = self else { return }
             switch result {
             case .success:
@@ -113,7 +89,7 @@ final class HomeViewController: UIViewController, MVVM.View {
                 this.alert(title: "", msg: error.localizedDescription, handler: nil)
             }
         }
-        homeViewModel.getSnippets(keySearch: Search.KeySearch.bolero, maxResults: 10) { [weak self] result in
+        homeViewModel.getSnippets(keySearch: .bolero, maxResults: 10) { [weak self] result in
             guard let this = self else { return }
             switch result {
             case .success:
@@ -184,6 +160,7 @@ extension HomeViewController: UITableViewDataSource {
         switch sectionType {
         case .trending:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.sliderImageCell, for: indexPath) as? SliderImageCell else {
+                // Crash...
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.makeSliderViewModel()

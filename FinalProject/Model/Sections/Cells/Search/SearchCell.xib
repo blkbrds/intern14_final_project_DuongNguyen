@@ -62,7 +62,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="channelImageView" destination="oW7-mE-y3N" id="ZgW-M5-XOI"/>
+                <outlet property="channelLabel" destination="Aav-57-qg9" id="jXu-3A-C2M"/>
                 <outlet property="titleLabel" destination="PtV-OI-afT" id="BBW-bC-D7w"/>
+                <outlet property="viewsLabel" destination="Yti-bP-0wm" id="weu-LC-eS7"/>
             </connections>
             <point key="canvasLocation" x="232.60869565217394" y="123.21428571428571"/>
         </tableViewCell>

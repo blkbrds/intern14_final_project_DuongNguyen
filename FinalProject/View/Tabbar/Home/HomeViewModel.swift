@@ -16,7 +16,6 @@ final class HomeViewModel: MVVM.ViewModel {
     // MARK: - Propeties
     weak var delegate: ViewModelDelegate?
 
-    private var itemsResponse: Results<ItemsResponse>?
     var list: [Snippet] = []
     var vd: [Video] = []
     var snippets: [Snippet] = []
@@ -29,9 +28,34 @@ final class HomeViewModel: MVVM.ViewModel {
     var videoNhacVang: [Video] = []
     var trending: [Snippet] = []
     var videoTrending: [Video] = []
+
+    struct Search {
+        enum KeySearch {
+            case bolero
+            case nhacXuan
+            case nhacVang
+            case channel
+            case trending
+            var key: String {
+                switch self {
+                case .bolero:
+                    return "bolero"
+                case .nhacXuan:
+                    return "nhacxuan"
+                case .nhacVang:
+                    return "nhacvang"
+                case .channel:
+                    return "karaoke"
+                case .trending:
+                    return ""
+                }
+            }
+        }
+    }
+
     private var pageNextToken: String = ""
 
-    private var token: NotificationToken?
+    private var notificationToken: NotificationToken?
 
     enum SectionType: Int, CaseIterable {
         case trending
@@ -114,7 +138,7 @@ extension HomeViewModel {
         case failure
     }
 
-    func getSnippets(keySearch: HomeViewController.Search.KeySearch, maxResults: Int, completion: @escaping APICompletion) {
+    func getSnippets(keySearch: Search.KeySearch, maxResults: Int, completion: @escaping APICompletion) {
         let params = Api.Snippet.QueryParams(
             token: "CBkQAA",
             keySearch: keySearch.key,

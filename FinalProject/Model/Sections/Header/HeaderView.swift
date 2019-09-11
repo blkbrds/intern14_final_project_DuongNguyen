@@ -10,6 +10,7 @@ import UIKit
 
 final class HeaderView: UITableViewHeaderFooterView {
 
+    // MARK: - Outlets
     @IBOutlet private weak var keySearchLabel: UILabel!
 
     func updateUI(title: String?) {

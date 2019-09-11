@@ -53,7 +53,6 @@ final class VideoPopularCell: UITableViewCell {
 }
 
 // MARK: - Extensions
-
 extension VideoPopularCell {
     struct ReuseIndentifier {
         static let imageCollectionCell = "ImageCollectionCell"
