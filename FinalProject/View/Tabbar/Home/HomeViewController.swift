@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MVVM
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, MVVM.View {
 
     // MARK: - Outlets
     @IBOutlet weak private var tableView: UITableView!
@@ -17,15 +18,25 @@ final class HomeViewController: UIViewController {
     var homeViewModel = HomeViewModel() {
         didSet {
             setUpUI()
+            updateView()
         }
     }
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        homeViewModel.delegate = self
+        homeViewModel.fetchData()
+        tableView.reloadData()
         configTableView()
         setUpUI()
         loadData()
+    }
+
+    func updateView() {
+        guard isViewLoaded else { return }
+        tableView.reloadData()
+        viewDidUpdated()
     }
 
     // MARK: - Custom funcs
@@ -42,10 +53,61 @@ final class HomeViewController: UIViewController {
     }
 
     private func loadData() {
-        homeViewModel.getData()
+        homeViewModel.getSnippets(keySearch: .trending, maxResults: 5) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: .channel, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: .nhacVang, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: .nhacXuan, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
+        homeViewModel.getSnippets(keySearch: .bolero, maxResults: 10) { [weak self] result in
+            guard let this = self else { return }
+            switch result {
+            case .success:
+                this.tableView.reloadData()
+            case .failure(let error):
+                this.alert(title: "", msg: error.localizedDescription, handler: nil)
+            }
+        }
     }
 
     // MARK: - Actions
+}
+
+// MARK: - Extensions
+extension HomeViewController: ViewModelDelegate {
+    func viewModel(_ viewModel: ViewModel, didChangeItemsAt indexPaths: [IndexPath], changeType: ChangeType) {
+        updateView()
+    }
 }
 
 extension HomeViewController {
@@ -56,7 +118,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: - Extensions
 extension HomeViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,27 +160,32 @@ extension HomeViewController: UITableViewDataSource {
         switch sectionType {
         case .trending:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.sliderImageCell, for: indexPath) as? SliderImageCell else {
+                // Crash...
                 return UITableViewCell()
             }
             cell.viewModel = homeViewModel.makeSliderViewModel()
+            cell.delegate = self
             return cell
         case .bolero:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-             cell.viewModel = homeViewModel.makeVideoViewModel()
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .nhacVang:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = homeViewModel.makeVideoViewModel()
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .nhacXuan:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = homeViewModel.makeVideoViewModel()
+            cell.viewModel = homeViewModel.makeVideoViewModel(for: indexPath)
+            cell.delegate = self
             return cell
         case .channel:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.channelCell, for: indexPath) as? ChannelCell else {
@@ -132,5 +198,45 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: UITableViewDelegate {
-// code
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        vc.video = homeViewModel.videoChannel[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension HomeViewController: SliderImageCellDelegate {
+    func cell(_ view: SliderImageCell, needPerformAction action: SliderImageCell.Action) {
+        switch action {
+        case .didSelectItem(let index):
+            let vc = DetailViewController()
+            vc.video = homeViewModel.videoTrending[index]
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension HomeViewController: VideoPopularCellDelegate {
+    func cell(_ view: VideoPopularCell, needPerformAction action: VideoPopularCell.Action) {
+        switch action {
+        case .didSelectItem(let index, let array):
+            guard let section = HomeViewModel.SectionType(rawValue: array) else {
+                return
+            }
+            let vc = DetailViewController()
+            switch section {
+            case .bolero:
+                vc.video = homeViewModel.videoBoleros[index]
+            case .nhacXuan:
+                vc.video = homeViewModel.videoNhacXuan[index]
+            case .nhacVang:
+                vc.video = homeViewModel.videoNhacVang[index]
+            case .channel:
+                break
+            case .trending:
+                break
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }

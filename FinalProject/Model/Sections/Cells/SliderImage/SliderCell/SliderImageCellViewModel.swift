@@ -10,6 +10,7 @@ import Foundation
 import MVVM
 
 final class SliderImageCellViewModel: MVVM.ViewModel {
+
     var sliderImageView: String
     var sliderTitleVideoLabel: String
 

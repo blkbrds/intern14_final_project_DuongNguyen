@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class SliderImageCollectionViewCell: UICollectionViewCell {
 
@@ -24,7 +25,7 @@ final class SliderImageCollectionViewCell: UICollectionViewCell {
     }
 
     func updateUI() {
-        self.sliderImageView.image = UIImage(named: viewModel.sliderImageView)
+        self.sliderImageView.sd_setImage(with: URL(string: viewModel.sliderImageView), placeholderImage: #imageLiteral(resourceName: "img-youtube"))
         self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
     }
 }
