@@ -17,15 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let home = HomeViewController()
         let homeNaviVC = UINavigationController(rootViewController: home)
-        homeNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-home"), selectedImage: #imageLiteral(resourceName: "ic-home"))
+        homeNaviVC.tabBarItem = UITabBarItem(title: "HOME", image: #imageLiteral(resourceName: "ic-home"), selectedImage: #imageLiteral(resourceName: "ic-home"))
 
         let search = SearchViewController()
         let searchNaviVC = UINavigationController(rootViewController: search)
-        searchNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-search"), selectedImage: #imageLiteral(resourceName: "ic-search"))
+        searchNaviVC.tabBarItem = UITabBarItem(title: "SEARCH", image: #imageLiteral(resourceName: "ic-search"), selectedImage: #imageLiteral(resourceName: "ic-search"))
 
         let favorite = FavoriteViewController()
         let favoriteNaviVC = UINavigationController(rootViewController: favorite)
-        favoriteNaviVC.tabBarItem = UITabBarItem(title: nil, image: #imageLiteral(resourceName: "ic-favorite"), selectedImage: #imageLiteral(resourceName: "ic-favorite"))
+        favoriteNaviVC.tabBarItem = UITabBarItem(title: "VIDEO YÊU THÍCH", image: #imageLiteral(resourceName: "ic-favorite"), selectedImage: #imageLiteral(resourceName: "ic-favorite"))
 
         let viewControllers = [homeNaviVC, searchNaviVC, favoriteNaviVC]
         let tabBarController = UITabBarController()

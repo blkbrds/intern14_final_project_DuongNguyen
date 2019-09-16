@@ -11,18 +11,18 @@ import MVVM
 
 final class VideoPopularCellViewModel: MVVM.ViewModel {
 
-    // Temp list image
-    let imgArr: [String]
+  // Temp list image
+  let imgArr: [String]
 
-    init(imgArr: [String] = []) {
-        self.imgArr = imgArr
-    }
+  init(imgArr: [String] = []) {
+    self.imgArr = imgArr
+  }
 
-    func numberOfImages() -> Int {
-        return imgArr.count
-    }
+  func numberOfImages() -> Int {
+    return imgArr.count
+  }
 
-    func getImages(at indexPath: IndexPath) -> ImageCellViewModel {
-        return ImageCellViewModel(videoImageView: imgArr[indexPath.row], titleOfVideoLabel: imgArr[indexPath.row])
-    }
+  func getImages(at indexPath: IndexPath) -> ImageCellViewModel {
+    return ImageCellViewModel(videoImageView: imgArr[indexPath.row], titleOfVideoLabel: imgArr[indexPath.row])
+  }
 }
