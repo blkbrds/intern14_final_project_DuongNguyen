@@ -29,7 +29,8 @@ final class SliderImageCollectionViewCell: UICollectionViewCell, MVVM.View {
 
   // MARK: - Custom func
   func updateView() {
-    self.sliderImageView.image = UIImage(named: viewModel?.sliderImageView ?? "")
-    self.sliderTitleVideoLabel.text = viewModel?.sliderTitleVideoLabel
+    guard let viewModel = viewModel else { return }
+    self.sliderImageView.image = UIImage(named: viewModel.sliderImageView)
+    self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
   }
 }

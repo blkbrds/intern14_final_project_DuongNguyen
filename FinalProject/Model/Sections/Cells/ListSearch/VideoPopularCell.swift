@@ -47,7 +47,8 @@ extension VideoPopularCell {
 extension VideoPopularCell: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel?.numberOfImages() ?? 0
+    guard let viewModel = viewModel else { return 0 }
+    return viewModel.numberOfImages()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -16,12 +16,7 @@ final class HomeViewModel: MVVM.ViewModel {
   // MARK: - Propeties
   var imgArr: [String] = []
   var popVideos: [String] = []
-  var listChannel: SnippetResult = SnippetResult()
-  var listTrending: SnippetResult = SnippetResult()
-  var listBoleroes: SnippetResult = SnippetResult()
-  var listNhacXuan: SnippetResult = SnippetResult()
-  var listNhacVang: SnippetResult = SnippetResult()
-
+  var channels: [String] = []
   private var notificationToken: NotificationToken?
 
   enum SectionType: Int, CaseIterable {
@@ -68,15 +63,11 @@ final class HomeViewModel: MVVM.ViewModel {
   }
 
   func getChannels(at indexPath: IndexPath) -> ChannelCellViewModel {
-    if let snippet = listChannel.items[indexPath.row].snippet {
-      return ChannelCellViewModel(channelImage: snippet.thumbnails, channelTitle: snippet.channelTitle, channelDescription: snippet.descript)
-    } else {
-      return ChannelCellViewModel(channelImage: App.String.imageDefault, channelTitle: App.String.titleDefault, channelDescription: App.String.descriptionDefault)
-    }
+    return ChannelCellViewModel(channelImage: channels[indexPath.row], channelTitle: channels[indexPath.row], channelDescription: channels[indexPath.row])
   }
 
   private func numbersOfRowChannel() -> Int {
-    return listChannel.items.count
+    return channels.count
   }
 
   func numberOfRowInSection(in section: Int) -> Int {
@@ -118,9 +109,7 @@ extension HomeViewModel {
   }
 
   func makeSliderViewModel() -> SliderCellViewModel {
-//    let vm = SliderCellViewModel(imgArr: listTrending.items)
     let vm = SliderCellViewModel(imgArr: imgArr)
-    print(vm.numberOfImages())
     return vm
   }
 }
@@ -128,53 +117,15 @@ extension HomeViewModel {
 // MARK: - APIs
 extension HomeViewModel {
 
-  func getChannel(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
-    let params = Api.Snippet.QueryParams(
-      token: "CBkQAA",
-      keySearch: keySearch,
-      maxResults: maxResults,
-      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
-    )
-    Api.Snippet.getSnippets(params: params) { (result) in
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success(let snippetResult):
-        self.listChannel.items = snippetResult.items
-        self.listChannel.nextPageToken = snippetResult.nextPageToken
-        completion(.success)
-      }
-    }
-  }
-
-  func getTrending(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
-    let params = Api.Snippet.QueryParams(
-      token: "CBkQAA",
-      keySearch: keySearch,
-      maxResults: maxResults,
-      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
-    )
-    Api.Snippet.getSnippets(params: params) { (result) in
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success(let snippetResult):
-        self.listTrending.items = snippetResult.items
-        self.listTrending.nextPageToken = snippetResult.nextPageToken
-        completion(.success)
-      }
-    }
-  }
-
   func getData() {
     imgArr = Dummy.imgArr
-//    channels = Dummy.channels
+    channels = Dummy.channels
     popVideos = Dummy.popVideos
   }
 }
 
 struct Dummy {
   static let imgArr: [String] = ["img1", "img2", "img3", "img4", "img5"]
-//  static let channels: [String] = ["123", "456", "789", "123", "456", "789", "123", "456", "789"]
+  static let channels: [String] = ["123", "456", "789", "123", "456", "789", "123", "456", "789"]
   static let popVideos: [String] = ["img1", "img2", "img3", "img4", "img5", "img1", "img2", "img3", "img4", "img5"]
 }
