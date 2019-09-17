@@ -11,18 +11,21 @@ import MVVM
 
 final class SliderCellViewModel: MVVM.ViewModel {
 
-    // Temp list image
-    let imgArr: [String]
+  let imgArr: [String]
 
-    init(imgArr: [String] = []) {
-        self.imgArr = imgArr
-    }
+  init(imgArr: [String] = []) {
+    self.imgArr = imgArr
+  }
 
-    func numberOfImages() -> Int {
-        return imgArr.count
+  // MARK: - Custom funcs
+  func numberOfImages() -> Int {
+    if imgArr.isEmpty {
+      return 0
     }
-    func getSliderImages(at indexPath: IndexPath) -> SliderImageCellViewModel {
-        return SliderImageCellViewModel(sliderImageView: imgArr[indexPath.row],
-                                    sliderTitleVideoLabel: imgArr[indexPath.row])
-    }
+    return imgArr.count
+  }
+
+  func getSliderImages(at indexPath: IndexPath) -> SliderImageCellViewModel {
+    return SliderImageCellViewModel(sliderImageView: imgArr[indexPath.row], sliderTitleVideoLabel: imgArr[indexPath.row])
+  }
 }

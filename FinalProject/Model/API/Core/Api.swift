@@ -11,9 +11,9 @@ import Alamofire
 
 final class Api {
 
-    struct Path {
-        static let baseURL = "https://"
-    }
+  struct Path {
+    static let baseURL = "https://"
+  }
 }
 
 protocol URLStringConvertible {

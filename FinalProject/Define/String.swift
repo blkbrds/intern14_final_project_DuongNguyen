@@ -6,6 +6,7 @@
 //  Copyright © 2019 Asiantech. All rights reserved.
 //
 import Foundation
+import SwiftUtils
 
 extension App {
 
@@ -18,4 +19,16 @@ extension App {
 }
 
 extension App.String {
+  static let boleroTitle = "Bolero".localized()
+  static let nhacXuanTitle = "Nhac xuân".localized()
+  static let nhacVangTitle = "Nhac vàng".localized()
+  static let channelTitle = "Channels".localized()
+  static let trendingKeySearch = "Popular".localized()
+  static let boleroKeySearch = "Bolero".localized()
+  static let nhacXuanKeySearch = "NhacXuan".localized()
+  static let nhacVangKeySearch = "NhacVang".localized()
+  static let channelKeySearch = "Karaoke".localized()
+  static let imageDefault: String = "img1".localized()
+  static let titleDefault: String = "Title".localized()
+  static let descriptionDefault: String = "Description".localized()
 }
