@@ -5,10 +5,12 @@ target 'FinalProject' do
 
   # Architect
   pod 'MVVM-Swift', '1.1.0' # MVVM Architect for iOS Application.
+  pod 'SwiftyJSON', '~> 4.0'
 
   # Data
   pod 'ObjectMapper', '3.3.0', :inhibit_warnings => true # Simple JSON Object mapping written in Swift.
   pod 'RealmSwift'
+  pod 'SDWebImage', '~> 5.0'
 
   # Network
   pod 'Alamofire', '4.8.2' # Elegant HTTP Networking in Swift.

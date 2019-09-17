@@ -11,9 +11,22 @@ import Alamofire
 
 final class Api {
 
-    struct Path {
-        static let baseURL = "https://"
-    }
+  struct Path {
+    static let baseURL = "https://www.googleapis.com/youtube"
+  }
+
+  struct Snippet {}
+}
+
+extension Api.Path {
+  struct Snippet: ApiPath {
+    static var path: String { return baseURL / "v3/search?" }
+    let token: String
+    let keySearch: String
+    let maxResults: Int
+    let keyID: String
+    var urlString: String { return Snippet.path / "pageToken=\(token)&part=snippet&maxResults=\(maxResults)&order=relevance&q=\(keySearch)&key=\(keyID)" }
+  }
 }
 
 protocol URLStringConvertible {

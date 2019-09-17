@@ -15,14 +15,15 @@ final class HomeViewController: UIViewController, MVVM.View {
   @IBOutlet weak private var tableView: UITableView!
 
   // MARK: - Properties
+  private let dispatchGroup = DispatchGroup()
   var homeViewModel = HomeViewModel()
 
   // MARK: - Life Cycles
   override func viewDidLoad() {
     super.viewDidLoad()
-    configTableView()
-    setUpUI()
     loadData()
+    setUpUI()
+    configTableView()
   }
 
   // MARK: - Custom funcs
@@ -40,6 +41,34 @@ final class HomeViewController: UIViewController, MVVM.View {
 
   private func loadData() {
     homeViewModel.getData()
+
+    dispatchGroup.enter()
+    homeViewModel.getTrending(keySearch: App.String.trendingKeySearch, maxResults: 5) { [weak self] result in
+      guard let this = self else { return }
+      switch result {
+      case .success:
+        break
+      case .failure(let error):
+        this.alert(title: "List trending load failed", msg: error.localizedDescription, handler: nil)
+      }
+      this.dispatchGroup.leave()
+    }
+
+    dispatchGroup.enter()
+    homeViewModel.getChannel(keySearch: App.String.channelKeySearch, maxResults: 10) { [weak self] result in
+      guard let this = self else { return }
+      switch result {
+      case .success:
+        break
+      case .failure(let error):
+        this.alert(title: "List channel load failed", msg: error.localizedDescription, handler: nil)
+      }
+      this.dispatchGroup.leave()
+    }
+
+    dispatchGroup.notify(queue: .main, execute: { [weak self] in
+      guard let this = self else { return }
+      this.tableView.reloadData()})
   }
 
   // MARK: - Actions

@@ -44,6 +44,12 @@
 		1CBB1B3423177A8600614B63 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBB1B3223177A8600614B63 /* FavoriteViewController.swift */; };
 		1CBB1B3523177A8600614B63 /* FavoriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CBB1B3323177A8600614B63 /* FavoriteViewController.xib */; };
 		1CBB1B37231784E400614B63 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBB1B36231784E400614B63 /* Color.swift */; };
+		307951C6232F67DA00A3D3D1 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951C5232F67DA00A3D3D1 /* RealmManager.swift */; };
+		307951C9232F6E7B00A3D3D1 /* Api.Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951C8232F6E7B00A3D3D1 /* Api.Snippet.swift */; };
+		307951CC232F6EB000A3D3D1 /* Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951CB232F6EB000A3D3D1 /* Snippet.swift */; };
+		307951CE232F6EB900A3D3D1 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951CD232F6EB900A3D3D1 /* Video.swift */; };
+		307951D0232F6F2600A3D3D1 /* ItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951CF232F6F2600A3D3D1 /* ItemsResponse.swift */; };
+		307951D2232F6F8400A3D3D1 /* SnippetResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307951D1232F6F8400A3D3D1 /* SnippetResult.swift */; };
 		4A79EA63A517C31C02DB5A25 /* Pods_FinalProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E20129E0A578502153539B /* Pods_FinalProjectTests.framework */; };
 		6AF60D052313B26E00F5CBA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AF60D042313B26E00F5CBA2 /* LaunchScreen.storyboard */; };
 		6AF60D082313B31200F5CBA2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF60D072313B31200F5CBA2 /* App.swift */; };
@@ -124,6 +130,12 @@
 		1CBB1B3223177A8600614B63 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1CBB1B3323177A8600614B63 /* FavoriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteViewController.xib; sourceTree = "<group>"; };
 		1CBB1B36231784E400614B63 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		307951C5232F67DA00A3D3D1 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		307951C8232F6E7B00A3D3D1 /* Api.Snippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.Snippet.swift; sourceTree = "<group>"; };
+		307951CB232F6EB000A3D3D1 /* Snippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippet.swift; sourceTree = "<group>"; };
+		307951CD232F6EB900A3D3D1 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		307951CF232F6F2600A3D3D1 /* ItemsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsResponse.swift; sourceTree = "<group>"; };
+		307951D1232F6F8400A3D3D1 /* SnippetResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetResult.swift; sourceTree = "<group>"; };
 		58D50BC9B8C885883B63A023 /* Pods-FinalProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FinalProject/Pods-FinalProject.debug.xcconfig"; sourceTree = "<group>"; };
 		6AF60D042313B26E00F5CBA2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AF60D072313B31200F5CBA2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -392,6 +404,25 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		307951C7232F6AFA00A3D3D1 /* API.Snippet */ = {
+			isa = PBXGroup;
+			children = (
+				307951C8232F6E7B00A3D3D1 /* Api.Snippet.swift */,
+			);
+			path = API.Snippet;
+			sourceTree = "<group>";
+		};
+		307951CA232F6E9600A3D3D1 /* ItemResponses */ = {
+			isa = PBXGroup;
+			children = (
+				307951CB232F6EB000A3D3D1 /* Snippet.swift */,
+				307951CD232F6EB900A3D3D1 /* Video.swift */,
+				307951CF232F6F2600A3D3D1 /* ItemsResponse.swift */,
+				307951D1232F6F8400A3D3D1 /* SnippetResult.swift */,
+			);
+			path = ItemResponses;
+			sourceTree = "<group>";
+		};
 		3B606A00995E3343DCFE7220 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +459,7 @@
 		6AF60D252313B56B00F5CBA2 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				307951CA232F6E9600A3D3D1 /* ItemResponses */,
 			);
 			path = Schema;
 			sourceTree = "<group>";
@@ -435,6 +467,7 @@
 		6AF60D672313B56B00F5CBA2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				307951C7232F6AFA00A3D3D1 /* API.Snippet */,
 				6AF60D692313B56B00F5CBA2 /* Core */,
 			);
 			path = API;
@@ -448,6 +481,7 @@
 				6AF60D6D2313B56B00F5CBA2 /* ApiManager.swift */,
 				6AF60D6E2313B56B00F5CBA2 /* ResponseSerializer.swift */,
 				6AF60D6F2313B56B00F5CBA2 /* Api.swift */,
+				307951C5232F67DA00A3D3D1 /* RealmManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -718,9 +752,11 @@
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftUtils/SwiftUtils.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -732,9 +768,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftUtils.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -792,6 +830,7 @@
 				6AF60E0A2313B9C000F5CBA2 /* UIViewExt.swift in Sources */,
 				6AF613B22313C13A00F5CBA2 /* Label.swift in Sources */,
 				1C3ACA75231E89FB00825457 /* ImageCollectionCell.swift in Sources */,
+				307951C6232F67DA00A3D3D1 /* RealmManager.swift in Sources */,
 				1C0E121F2317DEE800DD5773 /* SliderImageCollectionViewCell.swift in Sources */,
 				1C3ACA73231E89FB00825457 /* ImageCellViewModel.swift in Sources */,
 				6AF60DC42313B56B00F5CBA2 /* Error.swift in Sources */,
@@ -802,6 +841,7 @@
 				6AFD0303231375EE004940FA /* AppDelegate.swift in Sources */,
 				6AF613B02313C13A00F5CBA2 /* CollectionCell.swift in Sources */,
 				1CBB1B302317784300614B63 /* SearchViewController.swift in Sources */,
+				307951CC232F6EB000A3D3D1 /* Snippet.swift in Sources */,
 				1CBB1B37231784E400614B63 /* Color.swift in Sources */,
 				6AF60DC52313B56B00F5CBA2 /* ApiManager.swift in Sources */,
 				6AF60DC72313B56B00F5CBA2 /* Api.swift in Sources */,
@@ -810,9 +850,11 @@
 				6AF613B12313C13A00F5CBA2 /* CollectionViewHeaderView.swift in Sources */,
 				1C3C4D872318C719006A130D /* ChanelInforCell.swift in Sources */,
 				1C3ACA85231E904200825457 /* SliderCellViewModel.swift in Sources */,
+				307951C9232F6E7B00A3D3D1 /* Api.Snippet.swift in Sources */,
 				6AF60E1E2313B9C000F5CBA2 /* UIViewControllerExt.swift in Sources */,
 				1C3C4D8B2318C72C006A130D /* VideoInforCell.swift in Sources */,
 				1C3ACA7E231E8B2A00825457 /* VideoPopularCell.swift in Sources */,
+				307951D2232F6F8400A3D3D1 /* SnippetResult.swift in Sources */,
 				6AF60D082313B31200F5CBA2 /* App.swift in Sources */,
 				1C4F7292231E270A0010D444 /* HomeViewModel.swift in Sources */,
 				6AF60D802313B56B00F5CBA2 /* Session.swift in Sources */,
@@ -834,6 +876,8 @@
 				6AF613C42313C13A00F5CBA2 /* TableCell.swift in Sources */,
 				6AF613C92313C13A00F5CBA2 /* ImageView.swift in Sources */,
 				6AF60E212313B9C000F5CBA2 /* CollectionExt.swift in Sources */,
+				307951CE232F6EB900A3D3D1 /* Video.swift in Sources */,
+				307951D0232F6F2600A3D3D1 /* ItemsResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

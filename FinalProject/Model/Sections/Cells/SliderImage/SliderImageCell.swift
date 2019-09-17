@@ -17,6 +17,7 @@ final class SliderImageCell: UITableViewCell {
   // MARK: - Properties
   private var timer = Timer()
   private var counter = 0
+
   var viewModel: SliderCellViewModel? {
     didSet {
       configCollectionView()
@@ -44,13 +45,15 @@ final class SliderImageCell: UITableViewCell {
   }
 
   private func configPageView() {
-    pageView.numberOfPages = viewModel?.numberOfImages() ?? 0
+    guard let viewModel = viewModel else { return }
+    pageView.numberOfPages = viewModel.numberOfImages()
     pageView.currentPage = 0
     self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
   }
 
   @objc func changeImage() {
-    if counter < viewModel?.numberOfImages() ?? 0 {
+    guard let viewModel = viewModel else { return }
+    if counter < viewModel.numberOfImages() {
       let index = IndexPath(item: counter, section: 0)
       self.collectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
       pageView.currentPage = counter
@@ -75,7 +78,8 @@ extension SliderImageCell {
 extension SliderImageCell: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel?.numberOfImages() ?? 0
+    guard let viewModel = viewModel else { return 0 }
+    return viewModel.numberOfImages()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
