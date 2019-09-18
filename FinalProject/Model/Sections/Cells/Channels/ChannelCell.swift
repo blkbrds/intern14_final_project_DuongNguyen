@@ -34,8 +34,9 @@ final class ChannelCell: UITableViewCell, MVVM.View {
 
   // MARK: - Custom func
   private func setupUI() {
-    self.channelImageView.sd_setImage(with: URL(string: viewModel?.channelImage ?? ""), placeholderImage: #imageLiteral(resourceName: "img3"))
-    self.channelTitleLabel.text = viewModel?.channelTitle
-    self.channelDescriptionLabel.text = viewModel?.channelDescription
+    guard let viewModel = viewModel else { return }
+    self.channelImageView.sd_setImage(with: URL(string: viewModel.channelImage), placeholderImage: #imageLiteral(resourceName: "img3"))
+    self.channelTitleLabel.text = viewModel.channelTitle
+    self.channelDescriptionLabel.text = viewModel.channelDescription
   }
 }

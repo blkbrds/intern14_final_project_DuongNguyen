@@ -20,7 +20,7 @@ final class SliderImageCell: UITableViewCell {
 
   var viewModel: SliderCellViewModel? {
     didSet {
-      configCollectionView()
+      updateView()
       configPageView()
     }
   }
@@ -29,11 +29,6 @@ final class SliderImageCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     configCollectionView()
-    configPageView()
-  }
-
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
   }
 
   // MARK: - Custom funcs
@@ -42,6 +37,10 @@ final class SliderImageCell: UITableViewCell {
     collectionView.register(cellNib, forCellWithReuseIdentifier: ReuseIndentifier.sliderImageCollectionViewCell)
     collectionView.dataSource = self
     collectionView.delegate = self
+  }
+
+  private func updateView() {
+    collectionView.reloadData()
   }
 
   private func configPageView() {

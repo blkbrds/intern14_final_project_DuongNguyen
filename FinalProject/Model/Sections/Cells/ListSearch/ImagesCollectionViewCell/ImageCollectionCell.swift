@@ -24,10 +24,12 @@ final class ImageCollectionCell: UICollectionViewCell, MVVM.View {
 
   override func awakeFromNib() {
     super.awakeFromNib()
+    updateUI()
   }
 
   private func updateUI() {
-    self.videoImageView.image = UIImage(named: viewModel?.videoImageView ?? "")
-    self.titleOfVideoLabel.text = viewModel?.titleOfVideoLabel
+    guard let viewModel = viewModel else { return }
+    self.videoImageView.sd_setImage(with: URL(string: viewModel.videoImageView), placeholderImage: #imageLiteral(resourceName: "img3"))
+    self.titleOfVideoLabel.text = viewModel.titleOfVideoLabel
   }
 }

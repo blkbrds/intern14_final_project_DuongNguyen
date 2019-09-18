@@ -15,7 +15,11 @@ final class VideoPopularCell: UITableViewCell, MVVM.View {
   @IBOutlet weak private var collectionView: UICollectionView!
 
   // MARK: - Properties
-  var viewModel: VideoPopularCellViewModel?
+  var viewModel: VideoPopularCellViewModel? {
+    didSet {
+      updateUI()
+    }
+  }
   private let numberOfImage: CGFloat = 4
 
   // MARK: - Life Cycles
@@ -24,16 +28,16 @@ final class VideoPopularCell: UITableViewCell, MVVM.View {
     configCollectionView()
   }
 
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-  }
-
   // MARK: - Custom funcs
   private func configCollectionView() {
     let cellNib = UINib(nibName: ReuseIndentifier.imageCollectionCell, bundle: Bundle.main)
     collectionView.register(cellNib, forCellWithReuseIdentifier: ReuseIndentifier.imageCollectionCell)
     collectionView.dataSource = self
     collectionView.delegate = self
+  }
+
+  private func updateUI() {
+    collectionView.reloadData()
   }
 }
 
@@ -47,7 +51,8 @@ extension VideoPopularCell {
 extension VideoPopularCell: UICollectionViewDataSource {
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel?.numberOfImages() ?? 0
+    guard let viewModel = viewModel else { return 0 }
+    return viewModel.numberOfImages()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

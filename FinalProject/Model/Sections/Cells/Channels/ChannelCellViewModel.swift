@@ -15,9 +15,9 @@ final class ChannelCellViewModel: MVVM.ViewModel {
   var channelTitle: String
   var channelDescription: String
 
-  init(channelImage: String = "", channelTitle: String = "", channelDescription: String = "") {
-    self.channelImage = channelImage
-    self.channelTitle = channelTitle
-    self.channelDescription = channelDescription
+  init(model: Snippet) {
+    self.channelImage = model.thumbnails
+    self.channelTitle = model.title
+    self.channelDescription = model.descript
   }
 }

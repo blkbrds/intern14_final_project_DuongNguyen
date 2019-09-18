@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController, MVVM.View {
 
   // MARK: - Properties
   private let dispatchGroup = DispatchGroup()
-  var homeViewModel = HomeViewModel()
+  var viewModel = HomeViewModel()
 
   // MARK: - Life Cycles
   override func viewDidLoad() {
@@ -38,56 +38,104 @@ final class HomeViewController: UIViewController, MVVM.View {
   private func setUpUI() {
     title = App.String.homeTitle
   }
-  
-  func loadTrending(completed: @escaping () -> ()) {
-    homeViewModel.getTrending { (error) in
+
+  private func loadTrending(completed: @escaping () -> Void) {
+    viewModel.loadTrending { (error) in
       if let error = error {
-        // show error
+        self.alert(msg: error.localizedDescription, handler: nil)
       } else {
-        //update UI
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(NSIndexSet(index: App.Number.sectionOfTrending) as IndexSet, with: .automatic)
+        self.tableView.endUpdates()
+      }
+      completed()
+    }
+  }
+
+  private func loadBolero(completed: @escaping () -> Void) {
+    viewModel.loadBolero { (error) in
+      if let error = error {
+        self.alert(msg: error.localizedDescription, handler: nil)
+      } else {
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(NSIndexSet(index: App.Number.sectionOfBolero) as IndexSet, with: .automatic)
+        self.tableView.endUpdates()
+      }
+      completed()
+    }
+  }
+
+  private func loadNhacXuan(completed: @escaping () -> Void) {
+    viewModel.loadNhacXuan { (error) in
+      if let error = error {
+        self.alert(msg: error.localizedDescription, handler: nil)
+      } else {
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(NSIndexSet(index: App.Number.sectionOfNhacXuan) as IndexSet, with: .automatic)
+        self.tableView.endUpdates()
+      }
+      completed()
+    }
+  }
+
+  private func loadNhacVang(completed: @escaping () -> Void) {
+    viewModel.loadNhacVang { (error) in
+      if let error = error {
+        self.alert(msg: error.localizedDescription, handler: nil)
+      } else {
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(NSIndexSet(index: App.Number.sectionOfNhacVang) as IndexSet, with: .automatic)
+        self.tableView.endUpdates()
+      }
+      completed()
+    }
+  }
+
+  private func loadChannel(completed: @escaping () -> Void) {
+    viewModel.loadChannel { (error) in
+      if let error = error {
+        self.alert(msg: error.localizedDescription, handler: nil)
+      } else {
+        self.tableView.beginUpdates()
+        self.tableView.reloadSections(NSIndexSet(index: App.Number.sectionOfChannel) as IndexSet, with: .automatic)
+        self.tableView.endUpdates()
       }
       completed()
     }
   }
 
   private func loadData() {
-    homeViewModel.getData()
-    
-    dispatchGroup.enter()
-    loadTrending {
-      self.dispatchGroup.leave()
-    }
-
-    dispatchGroup.enter()
-    homeViewModel.getTrending(keySearch: App.String.trendingKeySearch, maxResults: 5) { [weak self] result in
-      guard let this = self else { return }
-      switch result {
-      case .success:
-        break
-      case .failure(let error):
-        this.alert(title: "List trending load failed", msg: error.localizedDescription, handler: nil)
+    DispatchQueue.main.async {
+      self.dispatchGroup.enter()
+      self.loadTrending {
+        self.dispatchGroup.leave()
       }
-      this.dispatchGroup.leave()
-    }
 
-    dispatchGroup.enter()
-    homeViewModel.getChannel(keySearch: App.String.channelKeySearch, maxResults: 10) { [weak self] result in
-      guard let this = self else { return }
-      switch result {
-      case .success:
-        break
-      case .failure(let error):
-        this.alert(title: "List channel load failed", msg: error.localizedDescription, handler: nil)
+      self.dispatchGroup.enter()
+      self.loadBolero {
+        self.dispatchGroup.leave()
       }
-      this.dispatchGroup.leave()
-    }
 
-    dispatchGroup.notify(queue: .main, execute: { [weak self] in
-      guard let this = self else { return }
-      this.tableView.reloadData()})
+      self.dispatchGroup.enter()
+      self.loadNhacXuan {
+        self.dispatchGroup.leave()
+      }
+
+      self.dispatchGroup.enter()
+      self.loadNhacVang {
+        self.dispatchGroup.leave()
+      }
+
+      self.dispatchGroup.enter()
+      self.loadChannel {
+        self.dispatchGroup.leave()
+      }
+
+      self.dispatchGroup.notify(queue: .main) {
+        print("Load done")
+      }
+    }
   }
-
-  // MARK: - Actions
 }
 
 extension HomeViewController {
@@ -95,6 +143,7 @@ extension HomeViewController {
     static let sliderImageCell = "SliderImageCell"
     static let listSearchCell = "VideoPopularCell"
     static let channelCell = "ChannelCell"
+    static let headerCell = "HeaderView"
   }
 }
 
@@ -102,11 +151,11 @@ extension HomeViewController {
 extension HomeViewController: UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    return homeViewModel.numberOfSections()
+    return viewModel.numberOfSections()
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return homeViewModel.numberOfRowInSection(in: section)
+    return viewModel.numberOfRowInSection(in: section)
   }
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -117,7 +166,7 @@ extension HomeViewController: UITableViewDataSource {
     case .trending:
       return UIView()
     default:
-      let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?[0] as? HeaderView
+      let headerView = Bundle.main.loadNibNamed(ReuseIdentifier.headerCell, owner: self, options: nil)?[0] as? HeaderView
       headerView?.updateUI(title: sectionType.title)
       return headerView
     }
@@ -129,9 +178,9 @@ extension HomeViewController: UITableViewDataSource {
     }
     switch sectionType {
     case .trending:
-      return 1
+      return App.Number.heightForSectionTrending
     default:
-      return 30
+      return App.Number.heightForSectionDefault
     }
   }
 
@@ -140,7 +189,7 @@ extension HomeViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return homeViewModel.heightForRowAt(at: indexPath)
+    return viewModel.heightForRowAt(at: indexPath)
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,31 +201,31 @@ extension HomeViewController: UITableViewDataSource {
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.sliderImageCell, for: indexPath) as? SliderImageCell else {
         return UITableViewCell()
       }
-      cell.viewModel = homeViewModel.makeSliderViewModel()
+      cell.viewModel = viewModel.makeSliderViewModel()
       return cell
     case .bolero:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
         return UITableViewCell()
       }
-      cell.viewModel = homeViewModel.makeVideoViewModel()
+      cell.viewModel = viewModel.makeBoleroViewModel()
       return cell
     case .nhacVang:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
         return UITableViewCell()
       }
-      cell.viewModel = homeViewModel.makeVideoViewModel()
+      cell.viewModel = viewModel.makeNhacVangViewModel()
       return cell
     case .nhacXuan:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.listSearchCell, for: indexPath) as? VideoPopularCell else {
         return UITableViewCell()
       }
-      cell.viewModel = homeViewModel.makeVideoViewModel()
+      cell.viewModel = viewModel.makeNhacXuanViewModel()
       return cell
     case .channel:
       guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.channelCell, for: indexPath) as? ChannelCell else {
         return UITableViewCell()
       }
-      cell.viewModel = homeViewModel.getChannels(at: indexPath)
+      cell.viewModel = viewModel.getChannels(at: indexPath)
       return cell
     }
   }

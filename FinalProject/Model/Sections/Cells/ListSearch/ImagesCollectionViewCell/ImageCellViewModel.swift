@@ -16,8 +16,8 @@ final class ImageCellViewModel: MVVM.ViewModel {
   var titleOfVideoLabel: String
 
   // MARK: - Init
-  init(videoImageView: String = "", titleOfVideoLabel: String = "") {
-    self.videoImageView = videoImageView
-    self.titleOfVideoLabel = titleOfVideoLabel
+  init(model: Snippet) {
+    self.videoImageView = model.thumbnails
+    self.titleOfVideoLabel = model.title
   }
 }

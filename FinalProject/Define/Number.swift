@@ -16,6 +16,13 @@ extension App {
 
 extension App.Number {
 
-  static let maxResultOfTrending = 5
-  static let maxResultDefault = 10
+  static let maxResultOfTrending: Int = 5
+  static let maxResultDefault: Int = 10
+  static let heightForSectionTrending: CGFloat = 1
+  static let heightForSectionDefault: CGFloat = 30
+  static let sectionOfTrending: Int = 0
+  static let sectionOfBolero: Int = 1
+  static let sectionOfNhacXuan: Int = 2
+  static let sectionOfNhacVang: Int = 3
+  static let sectionOfChannel: Int = 4
 }
