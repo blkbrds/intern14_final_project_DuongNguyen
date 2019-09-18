@@ -11,13 +11,13 @@ import MVVM
 
 final class ImageCellViewModel: MVVM.ViewModel {
 
-    // MARK: - Properties
-    var videoImageView: String
-    var titleOfVideoLabel: String
+  // MARK: - Properties
+  var videoImageView: String
+  var titleOfVideoLabel: String
 
-    // MARK: - Init
-    init(videoImageView: String = "", titleOfVideoLabel: String = "") {
-        self.videoImageView = videoImageView
-        self.titleOfVideoLabel = titleOfVideoLabel
-    }
+  // MARK: - Init
+  init(model: Snippet) {
+    self.videoImageView = model.thumbnails
+    self.titleOfVideoLabel = model.title
+  }
 }

@@ -10,11 +10,13 @@ import Foundation
 import MVVM
 
 final class SliderImageCellViewModel: MVVM.ViewModel {
-    var sliderImageView: String
-    var sliderTitleVideoLabel: String
 
-    init(sliderImageView: String = "", sliderTitleVideoLabel: String = "") {
-        self.sliderImageView = sliderImageView
-        self.sliderTitleVideoLabel = sliderTitleVideoLabel
-    }
+  // MARK: - Properties
+  var sliderImageView: String
+  var sliderTitleVideoLabel: String
+
+  init(model: Snippet) {
+    self.sliderImageView = model.thumbnails
+    self.sliderTitleVideoLabel = model.title
+  }
 }

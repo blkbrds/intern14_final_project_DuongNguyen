@@ -8,96 +8,234 @@
 
 import Foundation
 import MVVM
+import RealmSwift
+import SwiftyJSON
 
 final class HomeViewModel: MVVM.ViewModel {
 
-    // MARK: - Propeties
-    // Temp channel list
-    var channels: [String] = []
-    var imgArr: [String] = []
-    var popVideos: [String] = []
+  // MARK: - Propeties
+  var trendings: [Snippet] = []
+  var videoTrendings: [Video] = []
+  var trendingToken = ""
 
-    enum SectionType: Int, CaseIterable {
-        case trending
-        case bolero
-        case nhacXuan
-        case nhacVang
-        case channel
+  var boleroes: [Snippet] = []
+  var videoBoleroes: [Video] = []
+  var boleroesToken = ""
 
-        var title: String? {
-            switch self {
-            case .trending:
-                return nil
-            case .bolero:
-                return "Bolero"
-            case .nhacXuan:
-                return "Nhac xuan"
-            case .nhacVang:
-                return "Nhac vang"
-            case .channel:
-                return "Channel"
-            }
-        }
+  var nhacXuan: [Snippet] = []
+  var videoNhacXuan: [Video] = []
+  var nhacXuanToken = ""
+
+  var nhacVang: [Snippet] = []
+  var videoNhacVang: [Video] = []
+  var nhacVangToken = ""
+
+  var channels: [Snippet] = []
+  var videoChannels: [Video] = []
+  var channelsToken = ""
+
+  private var notificationToken: NotificationToken?
+
+  enum SectionType: Int, CaseIterable {
+    case trending
+    case bolero
+    case nhacXuan
+    case nhacVang
+    case channel
+
+    var title: String? {
+      switch self {
+      case .trending:
+        return nil
+      case .bolero:
+        return App.String.boleroTitle
+      case .nhacXuan:
+        return App.String.nhacXuanTitle
+      case .nhacVang:
+        return App.String.nhacVangTitle
+      case .channel:
+        return App.String.channelTitle
+      }
     }
 
-    // MARK: - Public func
-    func numberOfSections() -> Int {
-        return SectionType.allCases.count
+    var keySearch: String {
+      switch self {
+      case .bolero:
+        return App.String.boleroKeySearch
+      case .nhacXuan:
+        return App.String.nhacXuanKeySearch
+      case .nhacVang:
+        return App.String.nhacVangKeySearch
+      case .channel:
+        return App.String.channelKeySearch
+      case .trending:
+        return App.String.trendingKeySearch
+      }
     }
+  }
 
-    func getChannels(at indexPath: IndexPath) -> ChannelCellViewModel {
-        return ChannelCellViewModel(channelImage: "", channelTitle: channels[indexPath.row], channelDescription: channels[indexPath.row])
-    }
+  // MARK: - Public func
+  func numberOfSections() -> Int {
+    return SectionType.allCases.count
+  }
 
-    func numberOfRowInSection(in section: Int) -> Int {
-        guard let section = SectionType(rawValue: section) else { return 0 }
-        switch section {
-        case .trending, .bolero, .nhacVang, .nhacXuan:
-            return 1
-        default:
-            return channels.count
-        }
-    }
+  func getChannels(at indexPath: IndexPath) -> ChannelCellViewModel {
+    return ChannelCellViewModel(model: channels[indexPath.row])
+  }
 
-    func heightForRowAt(at indexPath: IndexPath) -> CGFloat {
-        guard let section = SectionType(rawValue: indexPath.section) else { return 0 }
-        switch section {
-        case .trending:
-            return 200
-        case .channel:
-            return 60
-        default:
-            return 100
-        }
+  private func numbersOfRowChannel() -> Int {
+    return channels.count
+  }
+
+  func numberOfRowInSection(in section: Int) -> Int {
+    guard let section = SectionType(rawValue: section) else { return 0 }
+    switch section {
+    case .trending, .bolero, .nhacVang, .nhacXuan:
+      return Config.numberOfRowInSectionDefault
+    default:
+      return numbersOfRowChannel()
     }
+  }
+
+  func heightForRowAt(at indexPath: IndexPath) -> CGFloat {
+    guard let section = SectionType(rawValue: indexPath.section) else { return 0 }
+    switch section {
+    case .trending:
+      return Config.heightForRowOfTrending
+    case .channel:
+      return Config.heightForRowOfChannel
+    default:
+      return Config.heightForRowOfDefault
+    }
+  }
 }
 
 // MARK: - View Model
 extension HomeViewModel {
 
-    func makeSliderViewModel() -> SliderCellViewModel {
-        let vm = SliderCellViewModel(imgArr: imgArr)
-        return vm
-    }
+  struct Config {
+    static let heightForRowOfTrending: CGFloat = 200
+    static let heightForRowOfChannel: CGFloat = 60
+    static let heightForRowOfDefault: CGFloat = 100
+    static let numberOfRowInSectionDefault: Int = 1
+  }
 
-    func  makeVideoViewModel() -> VideoPopularCellViewModel {
-        let vm = VideoPopularCellViewModel(imgArr: popVideos)
-        return vm
-    }
+  func makeBoleroViewModel() -> VideoPopularCellViewModel {
+    let vm = VideoPopularCellViewModel(snippets: boleroes)
+    return vm
+  }
+
+  func makeNhacVangViewModel() -> VideoPopularCellViewModel {
+    let vm = VideoPopularCellViewModel(snippets: nhacVang)
+    return vm
+  }
+
+  func makeNhacXuanViewModel() -> VideoPopularCellViewModel {
+    let vm = VideoPopularCellViewModel(snippets: nhacXuan)
+    return vm
+  }
+
+  func makeSliderViewModel() -> SliderCellViewModel {
+    let vm = SliderCellViewModel(snippets: trendings)
+    return vm
+  }
 }
 
 // MARK: - APIs
 extension HomeViewModel {
 
-    func getData() {
-        imgArr = Dummy.imgArr
-        channels = Dummy.channels
-        popVideos = Dummy.popVideos
+  func loadTrending(completion: @escaping (Error?) -> Void) {
+    Api.Snippet.getSnippetsTrending(token: App.String.token) { (result) in
+      switch result {
+      case .failure(let error):
+        completion(error)
+      case .success(let snippetResult):
+        for snippet in snippetResult.items {
+          if let snip = snippet.snippet {
+            self.trendings.append(snip)
+          }
+        }
+        if let nextPageToken = snippetResult.nextPageToken {
+          self.trendingToken = nextPageToken
+        }
+        completion(nil)
+      }
     }
-}
+  }
 
-struct Dummy {
-    static let imgArr: [String] = ["img1", "img2", "img3", "img4", "img5"]
-    static let channels: [String] = ["123", "456", "789", "123", "456", "789", "123", "456", "789"]
-    static let popVideos: [String] = ["img1", "img2", "img3", "img4", "img5", "img1", "img2", "img3", "img4", "img5"]
+  func loadBolero(completion: @escaping (Error?) -> Void) {
+    Api.Snippet.getSnippetsBolero(token: App.String.token) { (result) in
+      switch result {
+      case .failure(let error):
+        completion(error)
+      case .success(let snippetResult):
+        for snippet in snippetResult.items {
+          if let snip = snippet.snippet {
+            self.boleroes.append(snip)
+          }
+        }
+        if let nextPageToken = snippetResult.nextPageToken {
+          self.boleroesToken = nextPageToken
+        }
+        completion(nil)
+      }
+    }
+  }
+
+  func loadNhacXuan(completion: @escaping (Error?) -> Void) {
+    Api.Snippet.getSnippetsNhacXuan(token: App.String.token) { (result) in
+      switch result {
+      case .failure(let error):
+        completion(error)
+      case .success(let snippetResult):
+        for snippet in snippetResult.items {
+          if let snip = snippet.snippet {
+            self.nhacXuan.append(snip)
+          }
+        }
+        if let nextPageToken = snippetResult.nextPageToken {
+          self.nhacXuanToken = nextPageToken
+        }
+        completion(nil)
+      }
+    }
+  }
+
+  func loadNhacVang(completion: @escaping (Error?) -> Void) {
+    Api.Snippet.getSnippetsNhacVang(token: App.String.token) { (result) in
+      switch result {
+      case .failure(let error):
+        completion(error)
+      case .success(let snippetResult):
+        for snippet in snippetResult.items {
+          if let snip = snippet.snippet {
+            self.nhacVang.append(snip)
+          }
+        }
+        if let nextPageToken = snippetResult.nextPageToken {
+          self.nhacVangToken = nextPageToken
+        }
+        completion(nil)
+      }
+    }
+  }
+
+  func loadChannel(completion: @escaping (Error?) -> Void) {
+    Api.Snippet.getSnippetsChannel(token: App.String.token) { (result) in
+      switch result {
+      case .failure(let error):
+        completion(error)
+      case .success(let snippetResult):
+        for snippet in snippetResult.items {
+          if let snip = snippet.snippet {
+            self.channels.append(snip)
+          }
+        }
+        if let nextPageToken = snippetResult.nextPageToken {
+          self.channelsToken = nextPageToken
+        }
+        completion(nil)
+      }
+    }
+  }
 }
