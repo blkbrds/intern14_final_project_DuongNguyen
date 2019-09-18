@@ -8,32 +8,34 @@
 
 import UIKit
 import MVVM
+import SDWebImage
 
 final class ChannelCell: UITableViewCell, MVVM.View {
 
-    @IBOutlet weak private var channelImageView: UIImageView!
-    @IBOutlet weak private var channelTitleLabel: UILabel!
-    @IBOutlet weak private var channelDescriptionLabel: UILabel!
+  // MARK: - Outlets
+  @IBOutlet weak private var channelImageView: UIImageView!
+  @IBOutlet weak private var channelTitleLabel: UILabel!
+  @IBOutlet weak private var channelDescriptionLabel: UILabel!
 
-    var viewModel = ChannelCellViewModel() {
-        didSet {
-            setupUI()
-        }
+  var viewModel: ChannelCellViewModel? {
+    didSet {
+      setupUI()
     }
+  }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+  // MARK: - Life Cycle
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+  }
 
-    private func setupUI() {
-        // use lib SDWebImage
-//        self.channelImageView.sd_setImage(with: URL(string: viewModel.channelImage), placeholderImage: UIImage(named: "youtube"))
-        self.channelImageView.image = UIImage(named: viewModel.channelImage)
-        self.channelTitleLabel.text = viewModel.channelTitle
-        self.channelDescriptionLabel.text = viewModel.channelDescription
-    }
+  // MARK: - Custom func
+  private func setupUI() {
+    self.channelImageView.sd_setImage(with: URL(string: viewModel?.channelImage ?? ""), placeholderImage: #imageLiteral(resourceName: "img3"))
+    self.channelTitleLabel.text = viewModel?.channelTitle
+    self.channelDescriptionLabel.text = viewModel?.channelDescription
+  }
 }

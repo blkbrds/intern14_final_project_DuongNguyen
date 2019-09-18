@@ -11,13 +11,13 @@ import MVVM
 
 final class ChannelCellViewModel: MVVM.ViewModel {
 
-    var channelImage: String
-    var channelTitle: String
-    var channelDescription: String
+  var channelImage: String
+  var channelTitle: String
+  var channelDescription: String
 
-    init(channelImage: String = "", channelTitle: String = "", channelDescription: String = "") {
-        self.channelImage = channelImage
-        self.channelTitle = channelTitle
-        self.channelDescription = channelDescription
-    }
+  init(channelImage: String = "", channelTitle: String = "", channelDescription: String = "") {
+    self.channelImage = channelImage
+    self.channelTitle = channelTitle
+    self.channelDescription = channelDescription
+  }
 }

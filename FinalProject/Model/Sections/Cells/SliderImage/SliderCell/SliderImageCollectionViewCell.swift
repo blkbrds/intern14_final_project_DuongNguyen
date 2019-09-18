@@ -7,24 +7,31 @@
 //
 
 import UIKit
+import MVVM
+import SDWebImage
 
-final class SliderImageCollectionViewCell: UICollectionViewCell {
+final class SliderImageCollectionViewCell: UICollectionViewCell, MVVM.View {
 
-    // MARK: - Outlets
-    @IBOutlet weak private var sliderImageView: UIImageView!
-    @IBOutlet weak private var sliderTitleVideoLabel: UILabel!
+  // MARK: - Outlets
+  @IBOutlet weak private var sliderImageView: UIImageView!
+  @IBOutlet weak private var sliderTitleVideoLabel: UILabel!
 
-    var viewModel = SliderImageCellViewModel() {
-        didSet {
-            updateUI()
-        }
+  // MARK: - Properties
+  var viewModel: SliderImageCellViewModel? {
+    didSet {
+      updateView()
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+  }
 
-    func updateUI() {
-        self.sliderImageView.image = UIImage(named: viewModel.sliderImageView)
-        self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
-    }
+  // MARK: - Life cycles
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
+
+  // MARK: - Custom func
+  func updateView() {
+    guard let viewModel = viewModel else { return }
+    self.sliderImageView.sd_setImage(with: URL(string: viewModel.sliderImageView), placeholderImage: #imageLiteral(resourceName: "img3"))
+    self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
+  }
 }

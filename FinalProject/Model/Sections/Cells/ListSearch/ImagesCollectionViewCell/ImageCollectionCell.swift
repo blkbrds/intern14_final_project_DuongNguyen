@@ -7,26 +7,27 @@
 //
 
 import UIKit
+import MVVM
 
-final class ImageCollectionCell: UICollectionViewCell {
+final class ImageCollectionCell: UICollectionViewCell, MVVM.View {
 
-    // MARK: - Outlets
-    @IBOutlet weak private var videoImageView: UIImageView!
-    @IBOutlet weak private var titleOfVideoLabel: UILabel!
+  // MARK: - Outlets
+  @IBOutlet weak private var videoImageView: UIImageView!
+  @IBOutlet weak private var titleOfVideoLabel: UILabel!
 
-    // MARK: - Properties
-    var viewModel = ImageCellViewModel() {
-        didSet {
-            updateUI()
-        }
+  // MARK: - Properties
+  var viewModel: ImageCellViewModel? {
+    didSet {
+      updateUI()
     }
+  }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
 
-    private func updateUI() {
-        self.videoImageView.image = UIImage(named: viewModel.videoImageView)
-        self.titleOfVideoLabel.text = viewModel.titleOfVideoLabel
-    }
+  private func updateUI() {
+    self.videoImageView.image = UIImage(named: viewModel?.videoImageView ?? "")
+    self.titleOfVideoLabel.text = viewModel?.titleOfVideoLabel
+  }
 }
