@@ -21,6 +21,9 @@ final class HomeViewModel: MVVM.ViewModel {
   var listBoleroes: SnippetResult = SnippetResult()
   var listNhacXuan: SnippetResult = SnippetResult()
   var listNhacVang: SnippetResult = SnippetResult()
+  
+  var tredings: [Snippet] = []
+  var trendingToken = ""
 
   private var notificationToken: NotificationToken?
 
@@ -119,8 +122,7 @@ extension HomeViewModel {
 
   func makeSliderViewModel() -> SliderCellViewModel {
 //    let vm = SliderCellViewModel(imgArr: listTrending.items)
-    let vm = SliderCellViewModel(imgArr: imgArr)
-    print(vm.numberOfImages())
+    let vm = SliderCellViewModel(imgArr: [])
     return vm
   }
 }
@@ -128,41 +130,62 @@ extension HomeViewModel {
 // MARK: - APIs
 extension HomeViewModel {
 
-  func getChannel(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
-    let params = Api.Snippet.QueryParams(
-      token: "CBkQAA",
-      keySearch: keySearch,
-      maxResults: maxResults,
-      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
-    )
-    Api.Snippet.getSnippets(params: params) { (result) in
+//  func getChannel(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
+//    let params = Api.Snippet.QueryParams(
+//      token: "CBkQAA",
+//      keySearch: keySearch,
+//      maxResults: maxResults,
+//      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
+//    )
+//    Api.Snippet.getSnippets(params: params) { (result) in
+//      switch result {
+//      case .failure(let error):
+//        completion(.failure(error))
+//      case .success(let snippetResult):
+//        self.listChannel.items = snippetResult.items
+//        self.listChannel.nextPageToken = snippetResult.nextPageToken
+//        completion(.success)
+//      }
+//    }
+//  }
+//
+//  func getTrending(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
+//    let params = Api.Snippet.QueryParams(
+//      token: "CBkQAA",
+//      keySearch: keySearch,
+//      maxResults: maxResults,
+//      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
+//    )
+//    Api.Snippet.getSnippets(params: params) { (result) in
+//      switch result {
+//      case .failure(let error):
+//        completion(.failure(error))
+//      case .success(let snippetResult):
+//        self.listTrending.items = snippetResult.items
+//        self.listTrending.nextPageToken = snippetResult.nextPageToken
+//        completion(.success)
+//      }
+//    }
+//  }
+  
+  func getTrending(completion: @escaping (APIError?) -> () ) {
+    Api.Snippet.getSnippetsTrending(token: "ANC") { (result) in
       switch result {
       case .failure(let error):
-        completion(.failure(error))
+        completion((error as! APIError))
       case .success(let snippetResult):
-        self.listChannel.items = snippetResult.items
-        self.listChannel.nextPageToken = snippetResult.nextPageToken
-        completion(.success)
+        //array <-- result.items
+        self.tredings = snippetResult.items
+        //token <-- result.token
+        self.trendingToken = snippetResult.token
+        completion(nil)
       }
     }
   }
-
-  func getTrending(keySearch: String, maxResults: Int, completion: @escaping APICompletion) {
-    let params = Api.Snippet.QueryParams(
-      token: "CBkQAA",
-      keySearch: keySearch,
-      maxResults: maxResults,
-      keyID: "AIzaSyBgNGrJqNPgSkUOrI_WdmMKTW-NeBvAKjQ"
-    )
-    Api.Snippet.getSnippets(params: params) { (result) in
-      switch result {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success(let snippetResult):
-        self.listTrending.items = snippetResult.items
-        self.listTrending.nextPageToken = snippetResult.nextPageToken
-        completion(.success)
-      }
+  
+  func getBelero(completion: (APIError)->() ) {
+    Api.Snippet.getSnippet(keySearch: App.String.boleroKeySearch, token: "abc") { (result) in
+      
     }
   }
 

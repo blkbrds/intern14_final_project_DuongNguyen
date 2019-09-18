@@ -19,6 +19,9 @@ extension App {
 }
 
 extension App.String {
+  static let homeTitle = "HOME".localized()
+  static let searchTitle = "SEARCH".localized()
+  static let favoriteTitle = "VIDEO YÊU THÍCH".localized()
   static let boleroTitle = "Bolero".localized()
   static let nhacXuanTitle = "Nhac xuân".localized()
   static let nhacVangTitle = "Nhac vàng".localized()

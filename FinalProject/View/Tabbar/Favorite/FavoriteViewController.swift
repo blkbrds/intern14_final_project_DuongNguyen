@@ -29,7 +29,7 @@ import UIKit
     }
 
     private func setUpUI() {
-        title = "VIDEO YÊU THÍCH"
+        title = App.String.favoriteTitle
         let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: nil)
         navigationItem.rightBarButtonItem = deleteButton
     }

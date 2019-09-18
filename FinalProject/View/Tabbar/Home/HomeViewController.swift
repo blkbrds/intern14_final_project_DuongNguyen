@@ -36,11 +36,27 @@ final class HomeViewController: UIViewController, MVVM.View {
   }
 
   private func setUpUI() {
-    title = "HOME"
+    title = App.String.homeTitle
+  }
+  
+  func loadTrending(completed: @escaping () -> ()) {
+    homeViewModel.getTrending { (error) in
+      if let error = error {
+        // show error
+      } else {
+        //update UI
+      }
+      completed()
+    }
   }
 
   private func loadData() {
     homeViewModel.getData()
+    
+    dispatchGroup.enter()
+    loadTrending {
+      self.dispatchGroup.leave()
+    }
 
     dispatchGroup.enter()
     homeViewModel.getTrending(keySearch: App.String.trendingKeySearch, maxResults: 5) { [weak self] result in

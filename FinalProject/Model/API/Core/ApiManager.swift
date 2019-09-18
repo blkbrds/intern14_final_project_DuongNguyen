@@ -28,6 +28,7 @@ enum APIError: Error {
 
 typealias Completion<Value> = (Result<Value>) -> Void
 typealias APICompletion = (APIResult) -> Void
+typealias APICompletion2<T> = (Result<T>) -> Void
 
 enum APIResult {
     case success

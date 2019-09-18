@@ -8,6 +8,7 @@
 
 import UIKit
 import MVVM
+import SDWebImage
 
 final class SliderImageCollectionViewCell: UICollectionViewCell, MVVM.View {
 
@@ -29,7 +30,8 @@ final class SliderImageCollectionViewCell: UICollectionViewCell, MVVM.View {
 
   // MARK: - Custom func
   func updateView() {
-    self.sliderImageView.image = UIImage(named: viewModel?.sliderImageView ?? "")
-    self.sliderTitleVideoLabel.text = viewModel?.sliderTitleVideoLabel
+    guard let viewModel = viewModel else { return }
+    self.sliderImageView.sd_setImage(with: URL(string: viewModel.sliderImageView), placeholderImage: #imageLiteral(resourceName: "img3"))
+    self.sliderTitleVideoLabel.text = viewModel.sliderTitleVideoLabel
   }
 }

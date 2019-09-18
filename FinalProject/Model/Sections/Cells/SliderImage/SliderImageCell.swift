@@ -48,7 +48,9 @@ final class SliderImageCell: UITableViewCell {
     guard let viewModel = viewModel else { return }
     pageView.numberOfPages = viewModel.numberOfImages()
     pageView.currentPage = 0
-    self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+    if pageView.numberOfPages != 0 {
+      self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
+    }
   }
 
   @objc func changeImage() {
